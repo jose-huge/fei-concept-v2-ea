@@ -81,119 +81,22 @@
   }
   ::selection { background: var(--gold); color: var(--bg); }
 
-  /* ===================== HERO SLIDER ===================== */
-  .fe-hero {
-    position: relative;
+  /* ===================== HERO PLACEHOLDER ===================== */
+  .fe-hero-placeholder {
     width: 100%;
-    height: 92vh;
-    min-height: 640px;
-    background: var(--bg);
-    overflow: hidden;
+    min-height: 480px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .fe-hero__canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-  .fe-hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: linear-gradient(135deg, var(--bg) 0%, rgba(0,14,41,0.75) 30%, transparent 65%);
-    pointer-events: none;
-  }
-  .fe-hero__slides {
-    position: relative;
-    z-index: 2;
-    height: 100%;
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 0 40px;
-    box-sizing: border-box;
-  }
-  .fe-hero__slide {
-    position: absolute;
-    top: 50%;
-    transform: translateY(calc(-50% + 12px));
-    max-width: 780px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.45s ease, visibility 0.45s ease, transform 0.45s ease;
-    pointer-events: none;
-  }
-  .fe-hero__slide.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(-50%);
-    transition: opacity 0.9s ease 0.4s, visibility 0.9s ease 0.4s, transform 0.9s ease 0.4s;
-    pointer-events: auto;
-  }
-  .fe-hero__kicker {
-    font-family: var(--mono);
-    font-weight: 400;
-    font-size: 12px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--ink-dim);
-    margin: 0 0 24px;
-  }
-  .fe-hero__heading {
+  .fe-hero-placeholder h1 {
     font-family: var(--sans);
     font-weight: 300;
-    font-size: 72px;
-    line-height: 80px;
-    color: #ebeff1;
-    margin: 0 0 32px;
-  }
-  .fe-hero__body {
-    font-family: var(--sans);
-    font-weight: 400;
-    font-size: 17px;
-    line-height: 27.2px;
-    color: var(--ink-dim);
-    max-width: 620px;
-    margin: 0 0 40px;
-  }
-  .fe-hero__btn {
-    display: inline-flex;
-    align-items: center;
-    height: 52px;
-    padding: 0 24px;
-    background: #fff;
-    border: none;
-    border-radius: 4px;
-    font-family: var(--sans);
-    font-weight: 700;
-    font-size: 14px;
+    font-size: 52px;
+    line-height: 60px;
     color: #000e29;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  .fe-hero__btn:hover { background: #dfe9f0; }
-  .fe-hero__dots {
-    position: absolute;
-    bottom: 48px;
-    left: 40px;
-    z-index: 3;
-    display: flex;
-    gap: 10px;
-  }
-  .fe-hero__dot {
-    width: 40px;
-    height: 3px;
-    border: none;
-    padding: 0;
-    background: rgba(255,255,255,0.22);
-    cursor: pointer;
-    transition: background 0.4s ease;
-  }
-  .fe-hero__dot.active { background: #ebeff1; }
-  @media (max-width: 820px) {
-    .fe-hero__heading { font-size: 44px; line-height: 50px; }
-    .fe-hero__slide { max-width: 100%; }
+    margin: 0;
   }
 
   /* embeddable component — fixed 650px tall */
@@ -837,29 +740,8 @@
 </head>
 <body>
 
-<section class="fe-hero" id="hero">
-  <canvas class="fe-hero__canvas" id="hero-gl"></canvas>
-  <div class="fe-hero__slides" id="hero-slides">
-    <div class="fe-hero__slide active">
-      <p class="fe-hero__kicker">Since 1864</p>
-      <h1 class="fe-hero__heading">Discipline built over 160&nbsp;years. Relevant in every market.</h1>
-      <p class="fe-hero__body">First Eagle has operated through depressions, recessions, wars and every kind of volatility the market has produced. Our margin-of-safety philosophy has not changed. What we build for your clients is designed to hold up when others do not.</p>
-      <a href="#" class="fe-hero__btn">Explore Funds</a>
-    </div>
-    <div class="fe-hero__slide">
-      <p class="fe-hero__kicker">Margin of Safety</p>
-      <h1 class="fe-hero__heading">We invest to protect first. Growth follows.</h1>
-      <p class="fe-hero__body">Every position starts with the same question: what could go wrong? A margin-of-safety discipline that has anchored the firm through every cycle — applied one security at a time, across the entire platform.</p>
-      <a href="#" class="fe-hero__btn">Our Philosophy</a>
-    </div>
-    <div class="fe-hero__slide">
-      <p class="fe-hero__kicker">Built for Advisors</p>
-      <h1 class="fe-hero__heading">Everything you need for the client conversation.</h1>
-      <p class="fe-hero__body">Fund materials, CE-credit coursework and practice management resources — organized around how you actually work with clients, not how asset managers organize themselves.</p>
-      <a href="#" class="fe-hero__btn">Explore Resources</a>
-    </div>
-  </div>
-  <div class="fe-hero__dots" id="hero-dots"></div>
+<section class="fe-hero-placeholder">
+  <h1>Hero placeholder</h1>
 </section>
 
 <div class="fe-headline">
@@ -1410,208 +1292,6 @@ applyMode();
 
 </footer>
 
-<script>
-/* ============================================================================
-   Hero slider — its own lightweight topo-contour background.
-   Same marching-squares approach as the proof-points component, but with a
-   fixed gentle camera; each slide morphs the terrain into a new arrangement.
-   ========================================================================== */
-(() => {
-  const HH = (x, y, a, rx, ry) => ({ x, y, a, rx, ry });
-  const ZZ = HH(0, 0, 0, 3, 3);
 
-  // one terrain per slide
-  const FIELDS = [
-    { hills: [ HH(4.6,-0.8, 2.2, 3.4, 2.9), HH(-3.8, 2.2, 1.2, 3.2, 2.6),
-               HH(0.6, 3.2,-0.9, 4.0, 2.4), HH(7.4, 2.4, 0.9, 2.4, 2.2), ZZ, ZZ ],
-      warp: 0.26, flow: 0.12, tilt: 0.04 },
-    { hills: [ HH(5.2, 0.4, 2.8, 2.2, 2.4), HH(-4.6,-1.6, 1.1, 2.6, 2.4),
-               HH(1.2,-3.0,-0.8, 3.4, 2.2), HH(-1.0, 2.6, 0.8, 2.6, 2.2), ZZ, ZZ ],
-      warp: 0.18, flow: 0.10, tilt: 0.0 },
-    { hills: [ HH(-5.6,-1.8, 1.4, 1.8, 1.8), HH(-0.8, 2.4, 1.3, 1.7, 1.7),
-               HH(3.6,-1.4, 1.5, 1.9, 1.7), HH(6.8, 2.0, 1.2, 1.7, 1.8),
-               HH(0.8,-3.2, 1.0, 1.9, 1.6), HH(-3.0, 0.4,-0.9, 2.2, 2.2) ],
-      warp: 0.32, flow: 0.2, tilt: 0.03 },
-  ];
-
-  const hero = document.getElementById("hero");
-  const cv = document.getElementById("hero-gl");
-  const cx = cv.getContext("2d");
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  const CELL = 10, WORLD_H = 12, OVER = 0.35;
-  let W = 0, Hh = 0, DPR = 1, cols = 0, rows = 0, wpp = 1, OX = 0, OY = 0;
-  let field = new Float32Array(0);
-  const LEVELS = [];
-  for (let L = -1.4; L <= 3.05; L += 0.22) LEVELS.push(L);
-  const PEAK = 1.55;
-
-  function resize() {
-    W = hero.clientWidth; Hh = hero.clientHeight;
-    DPR = Math.min(window.devicePixelRatio || 1, 2);
-    cv.width = Math.round(W * DPR);
-    cv.height = Math.round(Hh * DPR);
-    cx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    OX = Math.round(W * OVER); OY = Math.round(Hh * OVER);
-    cols = Math.ceil((W + 2 * OX) / CELL);
-    rows = Math.ceil((Hh + 2 * OY) / CELL);
-    wpp = WORLD_H / Hh;
-    field = new Float32Array((cols + 1) * (rows + 1));
-  }
-  window.addEventListener("resize", resize);
-  resize();
-
-  const cloneF = f => ({ hills: f.hills.map(h => ({ ...h })), warp: f.warp, flow: f.flow, tilt: f.tilt });
-  const lp = (a, b, e) => a + (b - a) * e;
-  const lerpF = (A, B, e) => ({
-    hills: A.hills.map((a, k) => {
-      const b = B.hills[k];
-      return { x: lp(a.x,b.x,e), y: lp(a.y,b.y,e), a: lp(a.a,b.a,e), rx: lp(a.rx,b.rx,e), ry: lp(a.ry,b.ry,e) };
-    }),
-    warp: lp(A.warp,B.warp,e), flow: lp(A.flow,B.flow,e), tilt: lp(A.tilt,B.tilt,e),
-  });
-  const ease = t => -(Math.cos(Math.PI * t) - 1) / 2;
-
-  // fixed, gentle top-down camera; terrain sits low in the frame
-  const PITCH = 30 * Math.PI / 180;
-  const CAM_DIST = 22, FOCAL = 1350, H_SCALE = 1.5, BASE_L = 0.7, Y_OFFSET = 210;
-  const cosP = Math.cos(PITCH), sinP = Math.sin(PITCH);
-
-  let live = cloneF(FIELDS[0]);
-  let fromF = cloneF(live), toF = cloneF(live);
-  let tween = null;
-
-  function computeField(P, t) {
-    const hs = P.hills, nh = hs.length;
-    let idx = 0;
-    for (let j = 0; j <= rows; j++) {
-      const wy = (j * CELL - OY - Hh / 2) * wpp;
-      for (let i = 0; i <= cols; i++) {
-        const wx = (i * CELL - OX - W / 2) * wpp;
-        let v = P.tilt * wy;
-        for (let k = 0; k < nh; k++) {
-          const h = hs[k];
-          if (h.a === 0) continue;
-          const dx = (wx - h.x) / h.rx, dy = (wy - h.y) / h.ry;
-          v += h.a * Math.exp(-0.5 * (dx*dx + dy*dy));
-        }
-        v += P.warp * Math.sin(wx * 0.55 + t * P.flow) * Math.cos(wy * 0.5 - t * P.flow * 0.8);
-        field[idx++] = v;
-      }
-    }
-  }
-
-  const tr = (va, vb, L) => { const d = vb - va; return Math.abs(d) < 1e-6 ? 0.5 : (L - va) / d; };
-  let PXp = 0, PYp = 0;
-  function proj(px, py, L) {
-    const wx = (px - W / 2) * wpp, wy = (py - Hh / 2) * wpp;
-    const wz = (L - BASE_L) * H_SCALE;
-    const y2 = wy * cosP - wz * sinP;
-    const z2 = wy * sinP + wz * cosP;
-    const s = FOCAL / (z2 + CAM_DIST);
-    PXp = W / 2 + wx * s;
-    PYp = Hh / 2 + y2 * s + Y_OFFSET;
-  }
-  function seg(ax, ay, bx, by, L) {
-    proj(ax, ay, L); const mx = PXp, my = PYp;
-    proj(bx, by, L);
-    cx.moveTo(mx, my); cx.lineTo(PXp, PYp);
-  }
-
-  function drawContours() {
-    const stride = cols + 1;
-    for (let li = 0; li < LEVELS.length; li++) {
-      const L = LEVELS[li];
-      cx.beginPath();
-      for (let j = 0; j < rows; j++) {
-        const rowTop = j * stride, rowBot = rowTop + stride;
-        const y0 = j * CELL - OY, y1 = y0 + CELL;
-        for (let i = 0; i < cols; i++) {
-          const a = field[rowTop + i], b = field[rowTop + i + 1];
-          const c = field[rowBot + i + 1], d = field[rowBot + i];
-          let cse = 0;
-          if (a > L) cse |= 1; if (b > L) cse |= 2; if (c > L) cse |= 4; if (d > L) cse |= 8;
-          if (cse === 0 || cse === 15) continue;
-          const x0 = i * CELL - OX, x1 = x0 + CELL;
-          const Tx = x0 + CELL * tr(a, b, L), Ry = y0 + CELL * tr(b, c, L);
-          const Bx = x0 + CELL * tr(d, c, L), Ly = y0 + CELL * tr(a, d, L);
-          switch (cse) {
-            case 1: case 14: seg(x0, Ly, Tx, y0, L); break;
-            case 2: case 13: seg(Tx, y0, x1, Ry, L); break;
-            case 3: case 12: seg(x0, Ly, x1, Ry, L); break;
-            case 4: case 11: seg(x1, Ry, Bx, y1, L); break;
-            case 6: case 9:  seg(Tx, y0, Bx, y1, L); break;
-            case 7: case 8:  seg(x0, Ly, Bx, y1, L); break;
-            case 5:
-              if ((a + b + c + d) * 0.25 > L) { seg(Tx, y0, x1, Ry, L); seg(Bx, y1, x0, Ly, L); }
-              else { seg(x0, Ly, Tx, y0, L); seg(x1, Ry, Bx, y1, L); }
-              break;
-            case 10:
-              if ((a + b + c + d) * 0.25 > L) { seg(x0, Ly, Tx, y0, L); seg(x1, Ry, Bx, y1, L); }
-              else { seg(Tx, y0, x1, Ry, L); seg(Bx, y1, x0, Ly, L); }
-              break;
-          }
-        }
-      }
-      cx.strokeStyle = L >= PEAK ? "rgba(212,176,106,0.5)" : "rgba(210,220,240,0.28)";
-      cx.lineWidth = L >= PEAK ? 1.15 : 1.0;
-      cx.stroke();
-    }
-  }
-
-  function frame(t) {
-    const TIME_PERIOD = 78.54;
-    const time = reduce ? 0 : (t * 0.001) % TIME_PERIOD;
-    if (tween) {
-      if (tween.start === null) tween.start = t;
-      const k = Math.min(1, (t - tween.start) / tween.dur);
-      live = lerpF(fromF, toF, ease(k));
-      if (k >= 1) { live = cloneF(toF); tween = null; }
-    }
-    computeField(live, time);
-    cx.clearRect(0, 0, W, Hh);
-    cx.lineJoin = "round"; cx.lineCap = "round";
-    drawContours();
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-
-  /* ------------------------------ slides ------------------------------ */
-  const slides = Array.from(document.querySelectorAll(".fe-hero__slide"));
-  const dotsEl = document.getElementById("hero-dots");
-  let cur = 0;
-  const dots = slides.map((_, i) => {
-    const d = document.createElement("button");
-    d.className = "fe-hero__dot" + (i === 0 ? " active" : "");
-    d.setAttribute("aria-label", "Slide " + (i + 1));
-    d.addEventListener("click", () => { goTo(i); restart(); });
-    dotsEl.appendChild(d);
-    return d;
-  });
-
-  function goTo(i) {
-    if (i === cur && !tween) return;
-    slides[cur].classList.remove("active");
-    dots[cur].classList.remove("active");
-    cur = i;
-    slides[cur].classList.add("active");
-    dots[cur].classList.add("active");
-    fromF = cloneF(live);
-    toF = cloneF(FIELDS[cur]);
-    tween = { start: null, dur: 2400 };
-  }
-
-  const SLIDE_MS = 7000;
-  let timer = null;
-  function restart() {
-    if (timer) clearInterval(timer);
-    if (reduce) return;
-    timer = setInterval(() => goTo((cur + 1) % slides.length), SLIDE_MS);
-  }
-  hero.addEventListener("pointerenter", () => { if (timer) clearInterval(timer); timer = null; });
-  hero.addEventListener("pointerleave", restart);
-  restart();
-})();
-</script>
 </body>
 </html>
