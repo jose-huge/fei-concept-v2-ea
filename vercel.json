@@ -1,5 +1,0 @@
-{
-  "redirects": [
-    { "source": "/", "destination": "/first-eagle.html", "permanent": false }
-  ]
-}
