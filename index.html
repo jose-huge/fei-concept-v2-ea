@@ -81,22 +81,244 @@
   }
   ::selection { background: var(--gold); color: var(--bg); }
 
-  /* ===================== HERO PLACEHOLDER ===================== */
-  .fe-hero-placeholder {
+  /* ===================== HERO ===================== */
+  .fe-hero {
+    position: relative;
     width: 100%;
-    min-height: 480px;
-    background: #fff;
+    background: #000e29;
+    border-bottom-right-radius: 64px;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  #hero-gl {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+  }
+  .fe-hero__inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 120px 80px;
     display: flex;
+    gap: 142px;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  /* ---- left column ---- */
+  .fe-hero__left { flex: 0 1 733px; min-width: 0; }
+  .fe-hero__kicker {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #93aec1;
+    margin: 0 0 32px;
+  }
+  .fe-hero__headline {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 88px;
+    line-height: 1;
+    letter-spacing: -1.5px;
+    color: #fff;
+    margin: 0;
+    max-width: 737px;
+  }
+  .fe-hero__sub {
+    margin: 122px 0 0;
+    max-width: 405px;
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+    align-items: flex-start;
+  }
+  .fe-hero__body {
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.4;
+    color: #fff;
+    margin: 0;
+  }
+  .fe-hero__cta {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-  }
-  .fe-hero-placeholder h1 {
+    height: 48px;
+    padding: 0 20px;
+    background: #0068fc;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
     font-family: var(--sans);
-    font-weight: 300;
-    font-size: 52px;
-    line-height: 60px;
-    color: #000e29;
+    font-weight: 700;
+    font-size: 16px;
+    color: #fcfbfb;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  /* ---- right column / carousel ---- */
+  .fe-hero__right {
+    flex: 0 0 405px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+  }
+  .fe-hero__tabs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    height: 40px;
+    padding: 4px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    box-sizing: border-box;
+  }
+  .fe-hero__tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 0 12px;
+    min-width: 89px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 14px;
+    color: #93aec1;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .fe-hero__tab.active { background: #0068fc; color: #fff; }
+
+  .fe-hero__carousel { width: 100%; display: flex; flex-direction: column; gap: 24px; }
+  .fe-hero__strip-wrap { width: 405px; overflow: hidden; }
+  .fe-hero__strip {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
+  }
+  .fe-hero__card {
+    position: relative;
+    flex: 0 0 405px;
+    width: 405px;
+    height: 405px;
+    background: #162035;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    opacity: 0.8;
+    transition: opacity 0.5s ease;
+  }
+  .fe-hero__card.active { opacity: 1; }
+  .fe-hero__card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .fe-hero__card-grad {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,14,41,0), rgba(0,14,41,0.75));
+  }
+  .fe-hero__watch {
+    position: absolute;
+    left: 15px;
+    bottom: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 14px;
+    color: #fff;
+  }
+  .fe-hero__watch img { position: static; width: 16px; height: 16px; object-fit: contain; }
+
+  .fe-hero__caption { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+  .fe-hero__cat {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #93aec1;
     margin: 0;
+  }
+  .fe-hero__title {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.2;
+    color: #fff;
+    margin: 0;
+  }
+
+  .fe-hero__nav { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+  .fe-hero__dots { display: flex; gap: 6px; align-items: center; }
+  .fe-hero__dot {
+    width: 6px;
+    height: 6px;
+    padding: 0;
+    border: none;
+    border-radius: 100px;
+    background: #263249;
+    cursor: pointer;
+    transition: width 0.4s ease, background 0.4s ease;
+  }
+  .fe-hero__dot.active { width: 40px; background: #263249; position: relative; overflow: hidden; }
+  .fe-hero__dot.active::after {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 47%;
+    background: #fff;
+    border-radius: 100px;
+  }
+  .fe-hero__arrows { display: flex; gap: 8px; align-items: center; }
+  .fe-hero__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 100px;
+    border: 1px solid #93aec1;
+    background: transparent;
+    cursor: pointer;
+  }
+  .fe-hero__arrow img { width: 16px; height: 16px; filter: brightness(0) saturate(100%) invert(72%) sepia(14%) saturate(600%) hue-rotate(160deg); }
+  .fe-hero__arrow--next { background: #0068fc; border-color: #0068fc; }
+  .fe-hero__arrow--next img { filter: brightness(0) invert(1); }
+  .fe-hero__arrow--prev img { transform: scaleX(-1); }
+
+  @media (max-width: 1200px) {
+    .fe-hero__inner { flex-direction: column; gap: 64px; padding: 80px 40px; }
+    .fe-hero__headline { font-size: 64px; }
+    .fe-hero__sub { margin-top: 48px; }
+  }
+  @media (max-width: 640px) {
+    .fe-hero__headline { font-size: 44px; letter-spacing: -1px; }
+    .fe-hero__right, .fe-hero__strip-wrap, .fe-hero__card { width: 100%; }
+    .fe-hero__card { flex-basis: 100%; }
   }
 
   /* embeddable component — fixed 650px tall */
@@ -740,8 +962,46 @@
 </head>
 <body>
 
-<section class="fe-hero-placeholder">
-  <h1>Hero placeholder</h1>
+<section class="fe-hero" id="hero">
+  <canvas id="hero-gl"></canvas>
+  <div class="fe-hero__inner">
+    <div class="fe-hero__left">
+      <p class="fe-hero__kicker">Since 1864</p>
+      <h1 class="fe-hero__headline">Discipline built over 160 years. Relevant in every market.</h1>
+      <div class="fe-hero__sub">
+        <p class="fe-hero__body">First Eagle has operated through depressions, recessions, wars and every kind of volatility the market has produced. Our margin-of-safety philosophy has not changed. What we build for your clients is designed to hold up when others do not.</p>
+        <a href="#" class="fe-hero__cta">Explore Our Funds</a>
+      </div>
+    </div>
+
+    <div class="fe-hero__right">
+      <div class="fe-hero__tabs" id="hero-tabs">
+        <button class="fe-hero__tab active" data-tab="interviews">Interviews</button>
+        <button class="fe-hero__tab" data-tab="insights">Insights</button>
+      </div>
+
+      <div class="fe-hero__carousel">
+        <div class="fe-hero__strip-wrap">
+          <div class="fe-hero__strip" id="hero-strip"><!-- cards injected by JS --></div>
+        </div>
+        <div class="fe-hero__caption">
+          <p class="fe-hero__cat" id="hero-cat"></p>
+          <h3 class="fe-hero__title" id="hero-title"></h3>
+        </div>
+        <div class="fe-hero__nav">
+          <div class="fe-hero__dots" id="hero-dots"><!-- dots injected by JS --></div>
+          <div class="fe-hero__arrows">
+            <button class="fe-hero__arrow fe-hero__arrow--prev" id="hero-prev" aria-label="Previous">
+              <img src="lucide/arrow-right.svg" alt="">
+            </button>
+            <button class="fe-hero__arrow fe-hero__arrow--next" id="hero-next" aria-label="Next">
+              <img src="lucide/arrow-right.svg" alt="">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <div class="fe-headline">
@@ -1292,6 +1552,325 @@ applyMode();
 
 </footer>
 
+<script>
+/* ============================================================================
+   Hero — topographic background (namespaced copy of the contour engine) driven
+   by the video carousel, plus the carousel controller.
+   ========================================================================== */
+(function () {
+  const hero = document.getElementById("hero");
+  const canvas = document.getElementById("hero-gl");
+  if (!hero || !canvas) return;
+  const ctx = canvas.getContext("2d");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* -------- formation helpers (fixed 6 hills so any two morph) -------- */
+  const H = (x, y, a, rx, ry) => ({ x, y, a, rx, ry });
+  const Z = H(0, 0, 0, 3, 3);
+
+  /* -------- one formation + camera per carousel slide -------- */
+  const FORMATIONS = [
+    { f: { hills: [ H(-3.4,-1.2, 1.7, 3.4, 2.8), H(3.6, 1.3, 1.3, 3.1, 3.5),
+                    H(0.3, 2.9,-1.0, 4.2, 2.6), H(5.2,-2.6, 0.7, 2.6, 2.4), Z, Z ],
+           warp: 0.28, flow: 0.14, tilt: 0.05 }, cam: { deg: 18, yOff: 120 } },
+    { f: { hills: [ H(0,0, 3.1, 2.1, 2.3), H(-4.2,1.4, 0.9, 2.0, 2.0),
+                    H(4.0,-1.6, 0.8, 2.0, 2.1), H(0,-3.4,-0.7, 3.2, 2.0), Z, Z ],
+           warp: 0.18, flow: 0.10, tilt: 0.0 }, cam: { deg: 40, yOff: 100 } },
+    { f: { hills: [ H(-1.6,0, 2.2, 1.15, 4.6), H(1.5,0.5, 1.55, 1.05, 3.9),
+                    H(0,-0.2, 0.6, 6.0, 1.1), H(-5.5,2.5, 0.7, 2.0, 2.0), Z, Z ],
+           warp: 0.14, flow: 0.08, tilt: 0.0 }, cam: { deg: 30, yOff: 90 } },
+    { f: { hills: [ H(-6.0,-2.2, 1.4, 1.7, 1.7), H(-1.4,2.3, 1.35, 1.6, 1.6),
+                    H(3.2,-1.7, 1.55, 1.8, 1.6), H(6.2,1.9, 1.25, 1.6, 1.7),
+                    H(0.4,-3.4, 1.05, 1.9, 1.5), H(-3.2,0.6,-0.9, 2.2, 2.2) ],
+           warp: 0.34, flow: 0.22, tilt: 0.03 }, cam: { deg: 24, yOff: 110 } },
+  ];
+
+  const CELL = 10, WORLD_H = 12, OVER = 0.4;
+  let W = 0, Hgt = 0, DPR = 1, cols = 0, rows = 0, wpp = 1, OX = 0, OY = 0;
+  let field = new Float32Array(0);
+
+  const LEVELS = [];
+  for (let L = -1.4; L <= 3.05; L += 0.22) LEVELS.push(L);
+  const PEAK_LEVEL = 1.55;
+
+  function resize() {
+    W = hero.clientWidth; Hgt = hero.clientHeight;
+    if (!W || !Hgt) return;
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * DPR);
+    canvas.height = Math.round(Hgt * DPR);
+    canvas.style.width = W + "px";
+    canvas.style.height = Hgt + "px";
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    OX = Math.round(W * OVER);
+    OY = Math.round(Hgt * OVER);
+    cols = Math.ceil((W + 2 * OX) / CELL);
+    rows = Math.ceil((Hgt + 2 * OY) / CELL);
+    wpp = WORLD_H / Hgt;
+    field = new Float32Array((cols + 1) * (rows + 1));
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  function cloneF(f) { return { hills: f.hills.map(h => ({ ...h })), warp: f.warp, flow: f.flow, tilt: f.tilt }; }
+  const lp = (a, b, e) => a + (b - a) * e;
+  function lerpF(A, B, e) {
+    const hills = A.hills.map((a, k) => {
+      const b = B.hills[k];
+      return { x: lp(a.x,b.x,e), y: lp(a.y,b.y,e), a: lp(a.a,b.a,e), rx: lp(a.rx,b.rx,e), ry: lp(a.ry,b.ry,e) };
+    });
+    return { hills, warp: lp(A.warp,B.warp,e), flow: lp(A.flow,B.flow,e), tilt: lp(A.tilt,B.tilt,e) };
+  }
+  function easeInOutSine(t) { return -(Math.cos(Math.PI * t) - 1) / 2; }
+
+  const D2R = Math.PI / 180;
+  const CAM_DIST = 22, FOCAL = 1350, H_SCALE = 1.5, BASE_L = 0.7;
+
+  let activeIndex = 0;
+  let live = cloneF(FORMATIONS[0].f);
+  let fromF = cloneF(live), toF = cloneF(live);
+  let pitch = FORMATIONS[0].cam.deg * D2R, pitchFrom = pitch, pitchTo = pitch;
+  let yOff = FORMATIONS[0].cam.yOff, yOffFrom = yOff, yOffTo = yOff;
+  let yaw = 0;
+  let tween = null;
+
+  function morphTo(index) {
+    index = ((index % FORMATIONS.length) + FORMATIONS.length) % FORMATIONS.length;
+    activeIndex = index;
+    fromF = cloneF(live);
+    toF = cloneF(FORMATIONS[index].f);
+    pitchFrom = pitch; pitchTo = FORMATIONS[index].cam.deg * D2R;
+    yOffFrom = yOff;   yOffTo = FORMATIONS[index].cam.yOff;
+    tween = { start: null, dur: 2600 };
+  }
+
+  function computeField(P, t) {
+    const hs = P.hills, nh = hs.length;
+    let idx = 0;
+    for (let j = 0; j <= rows; j++) {
+      const wy = (j * CELL - OY - Hgt / 2) * wpp;
+      for (let i = 0; i <= cols; i++) {
+        const wx = (i * CELL - OX - W / 2) * wpp;
+        let v = P.tilt * wy;
+        for (let k = 0; k < nh; k++) {
+          const h = hs[k];
+          if (h.a === 0) continue;
+          const dx = (wx - h.x) / h.rx;
+          const dy = (wy - h.y) / h.ry;
+          v += h.a * Math.exp(-0.5 * (dx*dx + dy*dy));
+        }
+        v += P.warp * Math.sin(wx * 0.55 + t * P.flow) * Math.cos(wy * 0.5 - t * P.flow * 0.8);
+        field[idx++] = v;
+      }
+    }
+  }
+
+  function tr(va, vb, L) { const d = vb - va; return Math.abs(d) < 1e-6 ? 0.5 : (L - va) / d; }
+
+  let cosP = 1, sinP = 0, cosY = 1, sinY = 0, PX = 0, PY = 0;
+  function proj(px, py, L) {
+    const wx = (px - W / 2) * wpp;
+    const wy = (py - Hgt / 2) * wpp;
+    const wz = (L - BASE_L) * H_SCALE;
+    const x1 = wx * cosY - wy * sinY;
+    const y1 = wx * sinY + wy * cosY;
+    const y2 = y1 * cosP - wz * sinP;
+    const z2 = y1 * sinP + wz * cosP;
+    const s = FOCAL / (z2 + CAM_DIST);
+    PX = W / 2 + x1 * s;
+    PY = Hgt / 2 + y2 * s + yOff;
+  }
+  function seg(ax, ay, bx, by, L) {
+    proj(ax, ay, L); const mx = PX, my = PY;
+    proj(bx, by, L);
+    ctx.moveTo(mx, my); ctx.lineTo(PX, PY);
+  }
+
+  function drawContours() {
+    const stride = cols + 1;
+    for (let li = 0; li < LEVELS.length; li++) {
+      const L = LEVELS[li];
+      ctx.beginPath();
+      for (let j = 0; j < rows; j++) {
+        const rowTop = j * stride;
+        const rowBot = rowTop + stride;
+        const y0 = j * CELL - OY, y1 = y0 + CELL;
+        for (let i = 0; i < cols; i++) {
+          const a = field[rowTop + i];
+          const b = field[rowTop + i + 1];
+          const c = field[rowBot + i + 1];
+          const d = field[rowBot + i];
+          let cse = 0;
+          if (a > L) cse |= 1;
+          if (b > L) cse |= 2;
+          if (c > L) cse |= 4;
+          if (d > L) cse |= 8;
+          if (cse === 0 || cse === 15) continue;
+          const x0 = i * CELL - OX, x1 = x0 + CELL;
+          const Tx = x0 + CELL * tr(a, b, L);
+          const Ry = y0 + CELL * tr(b, c, L);
+          const Bx = x0 + CELL * tr(d, c, L);
+          const Ly = y0 + CELL * tr(a, d, L);
+          switch (cse) {
+            case 1: case 14: seg(x0, Ly, Tx, y0, L); break;
+            case 2: case 13: seg(Tx, y0, x1, Ry, L); break;
+            case 3: case 12: seg(x0, Ly, x1, Ry, L); break;
+            case 4: case 11: seg(x1, Ry, Bx, y1, L); break;
+            case 6: case 9:  seg(Tx, y0, Bx, y1, L); break;
+            case 7: case 8:  seg(x0, Ly, Bx, y1, L); break;
+            case 5:
+              if ((a + b + c + d) * 0.25 > L) { seg(Tx, y0, x1, Ry, L); seg(Bx, y1, x0, Ly, L); }
+              else { seg(x0, Ly, Tx, y0, L); seg(x1, Ry, Bx, y1, L); }
+              break;
+            case 10:
+              if ((a + b + c + d) * 0.25 > L) { seg(x0, Ly, Tx, y0, L); seg(x1, Ry, Bx, y1, L); }
+              else { seg(Tx, y0, x1, Ry, L); seg(Bx, y1, x0, Ly, L); }
+              break;
+          }
+        }
+      }
+      ctx.strokeStyle = L >= PEAK_LEVEL ? PEAK_COLOR : LINE_COLOR;
+      ctx.lineWidth = L >= PEAK_LEVEL ? 1.15 : 1.0;
+      ctx.stroke();
+    }
+  }
+
+  let mouseX = 0, mouseY = 0;
+  window.addEventListener("pointermove", (e) => {
+    const r = hero.getBoundingClientRect();
+    mouseX = ((e.clientX - r.left) / r.width - 0.5) * 2;
+    mouseY = ((e.clientY - r.top) / r.height - 0.5) * 2;
+  });
+
+  // faint, low-contrast tint so contours sit behind the white text as texture
+  const LINE_COLOR = "rgba(147,174,193,0.16)";
+  const PEAK_COLOR = "rgba(0,104,252,0.32)";
+
+  function frame(t) {
+    const TIME_PERIOD = 78.54;
+    const time = reduceMotion ? 0 : (t * 0.001) % TIME_PERIOD;
+    if (tween) {
+      if (tween.start === null) tween.start = t;
+      const k = Math.min(1, (t - tween.start) / tween.dur);
+      const e = easeInOutSine(k);
+      live = lerpF(fromF, toF, e);
+      pitch = pitchFrom + (pitchTo - pitchFrom) * e;
+      yOff = yOffFrom + (yOffTo - yOffFrom) * e;
+      if (k >= 1) { live = cloneF(toF); pitch = pitchTo; yOff = yOffTo; tween = null; }
+    }
+    yaw += (mouseX * 0.16 - yaw) * 0.04;
+    const pitchView = pitch + (reduceMotion ? 0 : mouseY * 0.05);
+    cosP = Math.cos(pitchView); sinP = Math.sin(pitchView);
+    cosY = Math.cos(yaw);       sinY = Math.sin(yaw);
+    if (W && Hgt) {
+      computeField(live, time);
+      ctx.clearRect(0, 0, W, Hgt);
+      ctx.lineJoin = "round"; ctx.lineCap = "round";
+      drawContours();
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  window.heroTopo = { morphTo, resize };
+})();
+
+/* ---------------------------- carousel controller ---------------------------- */
+(function () {
+  const strip = document.getElementById("hero-strip");
+  const dotsEl = document.getElementById("hero-dots");
+  const catEl = document.getElementById("hero-cat");
+  const titleEl = document.getElementById("hero-title");
+  const tabsEl = document.getElementById("hero-tabs");
+  if (!strip) return;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // formationIndex maps each slide to a hero topo formation (0-3)
+  const SLIDES = [
+    { tab: "interviews", cat: "global value", title: "How Scarcity Is Reasserting the Strategic Value of Real Assets.", thumb: "hero/video-1.png", formationIndex: 0 },
+    { tab: "interviews", cat: "market outlook", title: "Reading the Cycle: Where Discipline Pays Off in a Late-Stage Market.", thumb: "hero/video-2.png", formationIndex: 1 },
+    { tab: "interviews", cat: "portfolio construction", title: "Building a Margin of Safety Into Every Client Conversation.", thumb: null, formationIndex: 2 },
+    { tab: "insights", cat: "gold & real assets", title: "Why Gold Remains a Strategic Hedge, Not a Trade.", thumb: null, formationIndex: 3 },
+    { tab: "insights", cat: "global equity", title: "Finding Resilience Across Borders in an Uncertain Decade.", thumb: null, formationIndex: 0 },
+  ];
+
+  const CARD_W = 405, GAP = 20, AUTO_MS = 6000;
+  let activeTab = "interviews";
+  let view = [];      // slides filtered to activeTab
+  let idx = 0;        // index within view
+  let timer = null, paused = false;
+
+  function buildStrip() {
+    strip.innerHTML = "";
+    dotsEl.innerHTML = "";
+    view = SLIDES.filter(s => s.tab === activeTab);
+    view.forEach((s, i) => {
+      const card = document.createElement("div");
+      card.className = "fe-hero__card";
+      const inner = s.thumb ? `<img src="${s.thumb}" alt="">` : "";
+      card.innerHTML =
+        inner +
+        `<div class="fe-hero__card-grad"></div>` +
+        `<div class="fe-hero__watch">Watch <img src="lucide/circle-play.svg" alt=""></div>`;
+      strip.appendChild(card);
+
+      const dot = document.createElement("button");
+      dot.className = "fe-hero__dot";
+      dot.setAttribute("aria-label", "Slide " + (i + 1));
+      dot.addEventListener("click", () => { goTo(i); resetTimer(); });
+      dotsEl.appendChild(dot);
+    });
+  }
+
+  function render() {
+    strip.style.transform = `translateX(${-idx * (CARD_W + GAP)}px)`;
+    Array.from(strip.children).forEach((c, i) => c.classList.toggle("active", i === idx));
+    Array.from(dotsEl.children).forEach((d, i) => d.classList.toggle("active", i === idx));
+    const s = view[idx];
+    if (s) {
+      catEl.textContent = s.cat;
+      titleEl.textContent = s.title;
+      if (window.heroTopo) window.heroTopo.morphTo(s.formationIndex);
+    }
+  }
+
+  function goTo(i) {
+    idx = ((i % view.length) + view.length) % view.length;
+    render();
+  }
+
+  function setTab(tab) {
+    if (tab === activeTab) return;
+    activeTab = tab;
+    Array.from(tabsEl.children).forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
+    idx = 0;
+    buildStrip();
+    render();
+    resetTimer();
+  }
+
+  function tick() { if (!paused) goTo(idx + 1); }
+  function resetTimer() {
+    if (timer) clearInterval(timer);
+    if (!reduceMotion) timer = setInterval(tick, AUTO_MS);
+  }
+
+  tabsEl.addEventListener("click", (e) => {
+    const btn = e.target.closest(".fe-hero__tab");
+    if (btn) setTab(btn.dataset.tab);
+  });
+  document.getElementById("hero-next").addEventListener("click", () => { goTo(idx + 1); resetTimer(); });
+  document.getElementById("hero-prev").addEventListener("click", () => { goTo(idx - 1); resetTimer(); });
+
+  const carousel = strip.closest(".fe-hero__carousel");
+  carousel.addEventListener("pointerenter", () => { paused = true; });
+  carousel.addEventListener("pointerleave", () => { paused = false; });
+
+  buildStrip();
+  render();
+  resetTimer();
+})();
+</script>
 
 </body>
 </html>
