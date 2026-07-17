@@ -91,6 +91,8 @@
     border-bottom-right-radius: 80px;
     overflow: hidden;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
   }
   #hero-gl {
     position: absolute;
@@ -105,7 +107,7 @@
     max-width: 1600px;
     margin: 0 auto;
     box-sizing: border-box;
-    padding: 120px 80px;
+    padding: 120px 80px 0;
     display: flex;
     gap: 142px;
     align-items: flex-start;
@@ -277,12 +279,71 @@
     width: 32px;
     height: 32px;
     border-radius: 100px;
-    border: 1px solid #fff;
+    border: none;
     background: transparent;
     cursor: pointer;
+    padding: 0;
+  }
+  .fe-hero__arrow--next {
+    backdrop-filter: blur(2.5px);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid #000e29;
   }
   .fe-hero__arrow img { width: 16px; height: 16px; filter: brightness(0) invert(1); }
   .fe-hero__arrow--prev img { transform: scaleX(-1); }
+
+  /* stat cards row */
+  .fe-hero__stats {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 32px;
+    align-items: stretch;
+    padding: 40px 80px 80px;
+  }
+  .fe-hero__stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    box-sizing: border-box;
+  }
+  .fe-hero__stat-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #93aec1;
+    margin: 0;
+  }
+  .fe-hero__stat-value-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .fe-hero__stat-value {
+    font-family: "FE Chivo", sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.1;
+    color: #fff;
+    margin: 0;
+  }
+  .fe-hero__stat-arrow { width: 24px; height: 24px; flex: 0 0 24px; filter: brightness(0) invert(1); }
+  .fe-hero__stat-desc {
+    font-family: "FE Chivo", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.2;
+    color: #fff;
+    margin: 0;
+  }
 
   @media (max-width: 1200px) {
     .fe-hero__inner { flex-direction: column; gap: 64px; padding: 80px 40px; }
@@ -1509,6 +1570,41 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="fe-hero__stats">
+    <div class="fe-hero__stat">
+      <p class="fe-hero__stat-label">Heritage</p>
+      <div class="fe-hero__stat-value-row">
+        <p class="fe-hero__stat-value">Since 1864</p>
+        <img class="fe-hero__stat-arrow" src="lucide/arrow-right.svg" alt="">
+      </div>
+      <p class="fe-hero__stat-desc">Over 160 years investing through every kind of market.</p>
+    </div>
+    <div class="fe-hero__stat">
+      <p class="fe-hero__stat-label">Scale</p>
+      <div class="fe-hero__stat-value-row">
+        <p class="fe-hero__stat-value">$213B</p>
+        <img class="fe-hero__stat-arrow" src="lucide/arrow-right.svg" alt="">
+      </div>
+      <p class="fe-hero__stat-desc">Assets under management across the platform.</p>
+    </div>
+    <div class="fe-hero__stat">
+      <p class="fe-hero__stat-label">Reach</p>
+      <div class="fe-hero__stat-value-row">
+        <p class="fe-hero__stat-value">630+</p>
+        <img class="fe-hero__stat-arrow" src="lucide/arrow-right.svg" alt="">
+      </div>
+      <p class="fe-hero__stat-desc">Institutional investors around the globe.</p>
+    </div>
+    <div class="fe-hero__stat">
+      <p class="fe-hero__stat-label">Expertise</p>
+      <div class="fe-hero__stat-value-row">
+        <p class="fe-hero__stat-value">195</p>
+        <img class="fe-hero__stat-arrow" src="lucide/arrow-right.svg" alt="">
+      </div>
+      <p class="fe-hero__stat-desc">Investment professionals across all teams.</p>
     </div>
   </div>
 </section>
