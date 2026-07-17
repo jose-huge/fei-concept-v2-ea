@@ -263,13 +263,14 @@
     transition: width 0.4s ease, background 0.4s ease;
   }
   .fe-hero__dot.active { width: 40px; background: #263249; position: relative; overflow: hidden; }
-  .fe-hero__dot.active::after {
-    content: "";
+  .fe-hero__dot-fill {
     position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 47%;
+    top: 0; left: 0;
+    height: 100%;
+    width: 0%;
     background: #fff;
     border-radius: 100px;
+    pointer-events: none;
   }
   .fe-hero__arrows { display: flex; gap: 8px; align-items: center; }
   .fe-hero__arrow {
@@ -1263,9 +1264,15 @@
     width: 32px;
     height: 32px;
     border-radius: 100px;
-    border: 1px solid #fff;
+    border: none;
     background: transparent;
     cursor: pointer;
+    padding: 0;
+  }
+  .fe-funds-ticker__arrow--next {
+    backdrop-filter: blur(2.5px);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid #000e29;
   }
   .fe-funds-ticker__arrow img { width: 16px; height: 16px; filter: brightness(0) invert(1); }
   .fe-funds-ticker__arrow--prev img { transform: scaleX(-1); }
@@ -2191,8 +2198,8 @@
 
   const CARD_W = 405, GAP = 20, AUTO_MS = 6000;
   const view = SLIDES;
-  let idx = 0;        // index within view
-  let timer = null, paused = false;
+  let idx = 0;
+  let paused = false;
 
   function buildStrip() {
     strip.innerHTML = "";
@@ -2210,7 +2217,10 @@
       const dot = document.createElement("button");
       dot.className = "fe-hero__dot";
       dot.setAttribute("aria-label", "Slide " + (i + 1));
-      dot.addEventListener("click", () => { goTo(i); resetTimer(); });
+      dot.addEventListener("click", () => goTo(i));
+      const fill = document.createElement("span");
+      fill.className = "fe-hero__dot-fill";
+      dot.appendChild(fill);
       dotsEl.appendChild(dot);
     });
   }
@@ -2227,19 +2237,39 @@
     }
   }
 
+  let elapsed = 0, rafId = null, rafLastTs = null;
+
+  function scheduleProgress() {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafLastTs = null;
+    function step(ts) {
+      if (rafLastTs !== null && !paused) elapsed += ts - rafLastTs;
+      rafLastTs = ts;
+      const progress = Math.min(elapsed / AUTO_MS, 1);
+      const activeDot = dotsEl.children[idx];
+      if (activeDot) {
+        const fill = activeDot.querySelector(".fe-hero__dot-fill");
+        if (fill) fill.style.width = (progress * 100) + "%";
+      }
+      if (progress >= 1) { rafId = null; goTo(idx + 1); }
+      else { rafId = requestAnimationFrame(step); }
+    }
+    rafId = requestAnimationFrame(step);
+  }
+
   function goTo(i) {
     idx = ((i % view.length) + view.length) % view.length;
+    elapsed = 0;
+    Array.from(dotsEl.children).forEach(function (d) {
+      var f = d.querySelector(".fe-hero__dot-fill");
+      if (f) f.style.width = "0%";
+    });
     render();
+    if (!reduceMotion) scheduleProgress();
   }
 
-  function tick() { if (!paused) goTo(idx + 1); }
-  function resetTimer() {
-    if (timer) clearInterval(timer);
-    if (!reduceMotion) timer = setInterval(tick, AUTO_MS);
-  }
-
-  document.getElementById("hero-next").addEventListener("click", () => { goTo(idx + 1); resetTimer(); });
-  document.getElementById("hero-prev").addEventListener("click", () => { goTo(idx - 1); resetTimer(); });
+  document.getElementById("hero-next").addEventListener("click", () => goTo(idx + 1));
+  document.getElementById("hero-prev").addEventListener("click", () => goTo(idx - 1));
 
   const carousel = strip.closest(".fe-hero__carousel");
   carousel.addEventListener("pointerenter", () => { paused = true; });
