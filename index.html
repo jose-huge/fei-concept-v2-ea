@@ -326,7 +326,6 @@
   .fe-hero__stat-value-row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
   }
   .fe-hero__stat-value {
     font-family: "FE Chivo", sans-serif;
@@ -336,7 +335,6 @@
     color: #fff;
     margin: 0;
   }
-  .fe-hero__stat-arrow { width: 24px; height: 24px; flex: 0 0 24px; filter: brightness(0) invert(1); }
   .fe-hero__stat-desc {
     font-family: "FE Chivo", sans-serif;
     font-weight: 400;
@@ -1300,7 +1298,7 @@
     display: flex;
     flex-direction: column;
     gap: 38px;
-    width: 405px;
+    width: 500px;
     flex: 0 0 auto;
   }
   .fe-funds__title {
@@ -1741,9 +1739,608 @@
     .fe-teams { flex-direction: column; align-items: flex-start; }
     .fe-teams__right { width: 100%; }
   }
+
+  /* ======================================================
+     RESEARCH SLIDER (centered peek carousel)
+     ====================================================== */
+  .fe-research {
+    background: #f9f8f8;
+    padding: 80px 0;
+    overflow: hidden;
+  }
+  .fe-research__header {
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+    margin-bottom: 56px;
+    padding: 0 80px;
+  }
+  .fe-research__header-left {
+    flex: 1;
+  }
+  .fe-research__header-right {
+    flex: 0 0 405px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    padding-top: 6px;
+  }
+  .fe-research__eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #5b6b7a;
+    margin: 0 0 16px;
+    padding: 0 80px;
+  }
+  .fe-research__title {
+    font-family: "FE Chivo", sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1.0;
+    letter-spacing: -0.45px;
+    color: #000e29;
+    margin: 0;
+  }
+  .fe-research__sub {
+    font-family: "FE Chivo", sans-serif;
+    font-size: 22px;
+    line-height: 1.4;
+    color: #000e29;
+    margin: 0;
+  }
+  .fe-research__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "FE Chivo", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.15px;
+    color: #0068fc;
+    text-decoration: none;
+  }
+  .fe-research__link:hover { text-decoration: underline; }
+
+  /* Filter bar — centered + compact */
+  .fe-research__filters-wrap {
+    text-align: center;
+    margin-bottom: 56px;
+    padding: 0 80px;
+  }
+  .fe-research__filters {
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    gap: 0;
+    border: 2px solid #0068fc;
+    border-radius: 12px;
+    padding: 4px;
+    max-width: 100%;
+    overflow: visible;
+  }
+  .fe-research__filter {
+    font-family: "FE Chivo", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #626b7f;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    height: 32px;
+    padding: 0 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  .fe-research__filter.is-active {
+    background: #0068fc;
+    color: #fff;
+  }
+  .fe-research__filter:hover:not(.is-active) {
+    color: #000e29;
+  }
+
+  /* Carousel */
+  .fe-research__viewport {
+    position: relative;
+    overflow: visible;
+    width: 100%;
+    height: 513px;
+    clip-path: inset(0 0 -400px 0);
+  }
+  .fe-research__track {
+    position: relative;
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  .fe-research__slide {
+    position: relative;
+    flex: 0 0 auto;
+    width: 749px;
+    opacity: 0.85;
+    transition: opacity 0.4s, width 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .fe-research__slide.is-active {
+    width: 1037px;
+    opacity: 1;
+  }
+  .fe-research__img {
+    width: 100%;
+    height: 421px;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+    background: #c8d4df;
+    transition: height 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .fe-research__slide.is-active .fe-research__img {
+    height: 513px;
+  }
+  .fe-research__card {
+    position: absolute;
+    top: 152px;
+    right: -24px;
+    width: 405px;
+    background: #fff;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 1px solid rgba(235,239,241,0.15);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px 8px 64px 8px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s;
+  }
+  .fe-research__slide.is-active .fe-research__card,
+  .fe-research__slide--clone.is-active .fe-research__card {
+    opacity: 1;
+    visibility: visible;
+  }
+  .fe-research__card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .fe-research__card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .fe-research__card-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #626b7f;
+  }
+  .fe-research__card-sep {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #626b7f;
+  }
+  .fe-research__card-time {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #626b7f;
+  }
+  .fe-research__card-title {
+    font-family: "FE Chivo", sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.25px;
+    color: #000e29;
+    margin: 0;
+  }
+  .fe-research__card-desc {
+    font-family: "FE Chivo", sans-serif;
+    font-size: 18px;
+    line-height: 1.4;
+    color: #000e29;
+    margin: 0;
+  }
+  .fe-research__card-read {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "FE Chivo", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.15px;
+    color: #0068fc;
+    text-decoration: none;
+  }
+  .fe-research__card-read:hover { text-decoration: underline; }
+  .fe-research__card-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .fe-research__card-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: 0 0 40px;
+  }
+  .fe-research__card-author-name {
+    font-family: "FE Chivo", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #000e29;
+    margin: 0;
+  }
+  .fe-research__card-author-role {
+    font-family: "FE Chivo", sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #626b7f;
+    margin: 0;
+  }
+
+  /* Nav row */
+  .fe-research__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 48px;
+    padding: 0 80px;
+  }
+  .fe-research__dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .fe-research__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 100px;
+    background: #0068fc;
+    cursor: pointer;
+    transition: width 0.25s cubic-bezier(0.4,0,0.2,1);
+    position: relative;
+    overflow: hidden;
+    border: none;
+    padding: 0;
+  }
+  .fe-research__dot.is-active {
+    width: 40px;
+    height: 8px;
+  }
+  .fe-research__dot-fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 0%;
+    background: rgba(255,255,255,0.45);
+    border-radius: 100px;
+    pointer-events: none;
+  }
+  .fe-research__arrows {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .fe-research__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #0068fc;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .fe-research__arrow:hover {
+    background: #0068fc;
+  }
+  .fe-research__arrow:hover svg {
+    stroke: #fff;
+  }
+  .fe-research__arrow--prev svg {
+    transform: rotate(180deg);
+  }
+  .fe-research__arrow svg {
+    width: 20px;
+    height: 20px;
+    stroke: #0068fc;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+    transition: stroke 0.15s;
+  }
+
+  @media (max-width: 1100px) {
+    .fe-research { padding: 64px 0; }
+    .fe-research__header { flex-direction: column; align-items: flex-start; gap: 24px; padding: 0 40px; }
+    .fe-research__header-right { flex: 1; }
+    .fe-research__eyebrow { padding: 0 40px; }
+    .fe-research__filters-wrap { padding: 0 40px; }
+    .fe-research__nav { padding: 0 40px; }
+    .fe-research__track { gap: 24px; }
+    .fe-research__slide { width: calc(100vw - 80px); }
+    .fe-research__slide.is-active { width: calc(100vw - 80px); }
+    .fe-research__card {
+      position: static;
+      width: auto;
+      right: auto;
+      top: auto;
+      margin: -40px 16px 0;
+      border-radius: 8px 8px 48px 8px;
+    }
+    .fe-research__img,
+    .fe-research__slide.is-active .fe-research__img { height: 320px; }
+    .fe-research__card-title { font-size: 24px; }
+  }
+
+  /* ======================================================
+     BOTTOM CTA (fe-briefing)
+     ====================================================== */
+  .fe-briefing {
+    padding: 80px;
+    background: #f9f8f8;
+  }
+  .fe-briefing__card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background: #0068fc;
+    border-radius: 8px 8px 80px 8px;
+    padding: 64px;
+  }
+  .fe-briefing__type {
+    position: absolute;
+    top: 26px;
+    left: 672px;
+    height: 548px;
+    width: auto;
+    opacity: 1;
+    pointer-events: none;
+  }
+  .fe-briefing__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+  }
+  .fe-briefing__eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0;
+  }
+  .fe-briefing__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    width: 100%;
+  }
+  .fe-briefing__text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 560px;
+  }
+  .fe-briefing__title {
+    font-family: "FE Chivo", sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: #fff;
+    margin: 0;
+  }
+  .fe-briefing__desc {
+    font-family: "FE Chivo", sans-serif;
+    font-size: 22px;
+    line-height: 1.4;
+    letter-spacing: 0.15px;
+    color: #fff;
+    margin: 0;
+  }
+  .fe-briefing__actions {
+    flex: 0 0 340px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    position: relative;
+    z-index: 1;
+  }
+  .fe-briefing__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-family: "FE Chivo", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .fe-briefing__btn--frosted {
+    background: rgba(255,255,255,0.25);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.05);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+  .fe-briefing__btn--frosted:hover {
+    background: rgba(255,255,255,0.35);
+  }
+  .fe-briefing__btn--white {
+    background: #fff;
+    color: #000e29;
+  }
+  .fe-briefing__btn--white:hover {
+    background: #f1ece8;
+  }
+
+  @media (max-width: 1100px) {
+    .fe-briefing { padding: 40px; }
+    .fe-briefing__card { flex-direction: column; align-items: flex-start; gap: 40px; padding: 48px; }
+    .fe-briefing__row { flex-direction: column; align-items: flex-start; gap: 32px; }
+    .fe-briefing__actions { flex: none; width: 100%; }
+    .fe-briefing__type { display: none; }
+  }
+
+  /* ======================================================
+     SITE HEADER / NAV (not sticky)
+     ====================================================== */
+  .fe-nav {
+    position: static;
+    width: 100%;
+  }
+  /* utility bar */
+  .fe-nav__utility {
+    background: #162035;
+    height: 40px;
+    padding: 0 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .fe-nav__util-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .fe-nav__util-group--right { gap: 24px; }
+  .fe-nav__util {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #93aec1;
+    text-decoration: none;
+    white-space: nowrap;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .fe-nav__util--sep {
+    color: #93aec1;
+    padding: 4px 0;
+    opacity: 0.6;
+  }
+  .fe-nav__util:hover { color: #fff; }
+  .fe-nav__chevron {
+    width: 12px;
+    height: 12px;
+    filter: brightness(0) saturate(100%) invert(72%) sepia(10%) saturate(700%) hue-rotate(165deg) brightness(90%) contrast(88%);
+  }
+  /* main bar */
+  .fe-nav__main {
+    background: #000e29;
+    height: 92px;
+    padding: 0 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .fe-nav__logo {
+    height: 33px;
+    width: auto;
+    display: block;
+  }
+  .fe-nav__links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .fe-nav__link {
+    font-family: "FE Chivo", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .fe-nav__link:hover { color: #93aec1; }
+  .fe-nav__search {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+    cursor: pointer;
+  }
+  @media (max-width: 1100px) {
+    .fe-nav__utility { padding: 0 40px; }
+    .fe-nav__main { padding: 0 40px; }
+  }
+  @media (max-width: 860px) {
+    .fe-nav__utility { display: none; }
+    .fe-nav__links { gap: 16px; }
+    .fe-nav__link { font-size: 14px; }
+  }
+  @media (max-width: 600px) {
+    .fe-nav__links .fe-nav__link { display: none; }
+  }
 </style>
 </head>
 <body>
+
+<!-- ===================== SITE HEADER / NAV ===================== -->
+<header class="fe-nav">
+  <div class="fe-nav__utility">
+    <div class="fe-nav__util-group">
+      <button class="fe-nav__util">Financial Professional <img class="fe-nav__chevron" src="lucide/chevron-down.svg" alt=""></button>
+      <span class="fe-nav__util fe-nav__util--sep">/</span>
+      <button class="fe-nav__util">US <img class="fe-nav__chevron" src="lucide/chevron-down.svg" alt=""></button>
+    </div>
+    <div class="fe-nav__util-group fe-nav__util-group--right">
+      <a href="#" class="fe-nav__util">Noteholder Services</a>
+      <a href="#" class="fe-nav__util">Subscriptions</a>
+      <a href="#" class="fe-nav__util">Account Access</a>
+    </div>
+  </div>
+  <div class="fe-nav__main">
+    <a href="#" aria-label="First Eagle Investments home">
+      <img class="fe-nav__logo" src="nav/fei-logo-white.svg" alt="First Eagle Investments">
+    </a>
+    <nav class="fe-nav__links">
+      <a href="#" class="fe-nav__link">Investments</a>
+      <a href="#" class="fe-nav__link">Insights</a>
+      <a href="#" class="fe-nav__link">Resources</a>
+      <a href="#" class="fe-nav__link">Who We Are</a>
+      <img class="fe-nav__search" src="lucide/search.svg" alt="Search">
+    </nav>
+  </div>
+</header>
 
 <div class="fe-hero-wrap">
 <section class="fe-hero" id="hero">
@@ -1787,7 +2384,6 @@
       <p class="fe-hero__stat-label">Heritage</p>
       <div class="fe-hero__stat-value-row">
         <p class="fe-hero__stat-value">Since 1864</p>
-        <img class="fe-hero__stat-arrow" src="lucide/arrow-right.svg" alt="">
       </div>
       <p class="fe-hero__stat-desc">Over 160 years investing through every kind of market.</p>
     </div>
@@ -1795,7 +2391,6 @@
       <p class="fe-hero__stat-label">Scale</p>
       <div class="fe-hero__stat-value-row">
         <p class="fe-hero__stat-value">$213B</p>
-        <img class="fe-hero__stat-arrow" src="lucide/arrow-right.svg" alt="">
       </div>
       <p class="fe-hero__stat-desc">Assets under management across the platform.</p>
     </div>
@@ -1803,7 +2398,6 @@
       <p class="fe-hero__stat-label">Reach</p>
       <div class="fe-hero__stat-value-row">
         <p class="fe-hero__stat-value">630+</p>
-        <img class="fe-hero__stat-arrow" src="lucide/arrow-right.svg" alt="">
       </div>
       <p class="fe-hero__stat-desc">Institutional investors around the globe.</p>
     </div>
@@ -1811,7 +2405,6 @@
       <p class="fe-hero__stat-label">Expertise</p>
       <div class="fe-hero__stat-value-row">
         <p class="fe-hero__stat-value">195</p>
-        <img class="fe-hero__stat-arrow" src="lucide/arrow-right.svg" alt="">
       </div>
       <p class="fe-hero__stat-desc">Investment professionals across all teams.</p>
     </div>
@@ -2063,6 +2656,161 @@
       <p class="fe-teams__card-title" id="teams-card-title">First Eagle Small Cap</p>
       <p class="fe-teams__card-desc" id="teams-card-desc">Catalyst-driven value investing in small and smid cap companies. Specialists in finding opportunity where the market is least efficient.</p>
       <img class="fe-teams__card-icons" id="teams-card-icons" src="teams/icons-0.svg" alt="">
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESEARCH SLIDER ===================== -->
+<section class="fe-research" id="research">
+  <p class="fe-research__eyebrow">From Our Research Desk</p>
+  <div class="fe-research__header">
+    <div class="fe-research__header-left">
+      <h2 class="fe-research__title">Built for the advisor who<br>wants more than a product.</h2>
+    </div>
+    <div class="fe-research__header-right">
+      <p class="fe-research__sub">Portfolio managers closest to each position sound off.</p>
+      <a href="#" class="fe-research__link">See All Insight <img src="insights/arrow-right-blue.svg" alt="" style="width:16px;height:16px;"></a>
+    </div>
+  </div>
+
+  <div class="fe-research__filters-wrap">
+    <div class="fe-research__filters" role="tablist">
+      <button class="fe-research__filter is-active" data-filter="all">All</button>
+      <button class="fe-research__filter" data-filter="market-outlook">Market Outlook</button>
+      <button class="fe-research__filter" data-filter="alt-credit">Alternative Credit</button>
+      <button class="fe-research__filter" data-filter="municipal">Municipal Credit</button>
+      <button class="fe-research__filter" data-filter="gold">Gold &amp; Real Asset</button>
+      <button class="fe-research__filter" data-filter="practice">Practice Building</button>
+    </div>
+  </div>
+
+  <div class="fe-research__viewport" id="research-viewport">
+    <div class="fe-research__track" id="research-track">
+
+      <div class="fe-research__slide is-active" data-filter="market-outlook">
+        <img class="fe-research__img" src="insights/slide-1.png" alt="Market Outlook">
+        <div class="fe-research__card">
+          <div class="fe-research__card-body">
+            <div class="fe-research__card-meta">
+              <span class="fe-research__card-tag">Market Outlook</span>
+              <span class="fe-research__card-sep">•</span>
+              <span class="fe-research__card-time">5 min</span>
+            </div>
+            <p class="fe-research__card-title">The Long Road to AI Driven Productivity</p>
+            <p class="fe-research__card-desc">Labor markets are starting to see measurable productivity gains, but large-scale impacts may take longer to come to fruition.</p>
+            <a href="#" class="fe-research__card-read">Read Insight <img src="insights/arrow-right-blue.svg" alt="" style="width:16px;height:16px;"></a>
+          </div>
+          <div class="fe-research__card-author">
+            <img class="fe-research__card-avatar" src="insights/authors.png" alt="">
+            <div>
+              <p class="fe-research__card-author-name">Matthew McLennan, CFA</p>
+              <p class="fe-research__card-author-role">Head of Global Value, Portfolio Manager</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fe-research__slide" data-filter="alt-credit">
+        <img class="fe-research__img" src="insights/slide-2.png" alt="Alternative Credit">
+        <div class="fe-research__card">
+          <div class="fe-research__card-body">
+            <div class="fe-research__card-meta">
+              <span class="fe-research__card-tag">Alternative Credit</span>
+              <span class="fe-research__card-sep">•</span>
+              <span class="fe-research__card-time">4 min</span>
+            </div>
+            <p class="fe-research__card-title">Private Credit's Role in a Diversified Portfolio</p>
+            <p class="fe-research__card-desc">With spreads compressing in public markets, private credit continues to offer compelling risk-adjusted returns for long-term allocators.</p>
+            <a href="#" class="fe-research__card-read">Read Insight <img src="insights/arrow-right-blue.svg" alt="" style="width:16px;height:16px;"></a>
+          </div>
+          <div class="fe-research__card-author">
+            <img class="fe-research__card-avatar" src="insights/authors.png" alt="">
+            <div>
+              <p class="fe-research__card-author-name">Andrew Laurence</p>
+              <p class="fe-research__card-author-role">Senior Vice President, Napier Park</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fe-research__slide" data-filter="municipal">
+        <img class="fe-research__img" src="insights/slide-3.png" alt="Municipal Credit">
+        <div class="fe-research__card">
+          <div class="fe-research__card-body">
+            <div class="fe-research__card-meta">
+              <span class="fe-research__card-tag">Municipal Credit</span>
+              <span class="fe-research__card-sep">•</span>
+              <span class="fe-research__card-time">3 min</span>
+            </div>
+            <p class="fe-research__card-title">Building Resilience Through Municipal Credit</p>
+            <p class="fe-research__card-desc">High-quality muni bonds remain one of the most tax-efficient tools available to advisors serving high-net-worth clients.</p>
+            <a href="#" class="fe-research__card-read">Read Insight <img src="insights/arrow-right-blue.svg" alt="" style="width:16px;height:16px;"></a>
+          </div>
+          <div class="fe-research__card-author">
+            <img class="fe-research__card-avatar" src="insights/authors.png" alt="">
+            <div>
+              <p class="fe-research__card-author-name">Robert Bruno</p>
+              <p class="fe-research__card-author-role">Senior Vice President</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fe-research__slide" data-filter="gold">
+        <img class="fe-research__img" src="insights/slide-4.png" alt="Gold and Real Assets">
+        <div class="fe-research__card">
+          <div class="fe-research__card-body">
+            <div class="fe-research__card-meta">
+              <span class="fe-research__card-tag">Gold &amp; Real Asset</span>
+              <span class="fe-research__card-sep">•</span>
+              <span class="fe-research__card-time">6 min</span>
+            </div>
+            <p class="fe-research__card-title">Gold as a Hedge: Rethinking Hard Assets</p>
+            <p class="fe-research__card-desc">Our team explores how gold and real assets can serve as a meaningful hedge against monetary debasement and tail risk.</p>
+            <a href="#" class="fe-research__card-read">Read Insight <img src="insights/arrow-right-blue.svg" alt="" style="width:16px;height:16px;"></a>
+          </div>
+          <div class="fe-research__card-author">
+            <img class="fe-research__card-avatar" src="insights/authors.png" alt="">
+            <div>
+              <p class="fe-research__card-author-name">Idanna Appio</p>
+              <p class="fe-research__card-author-role">Portfolio Manager, Global Value</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.fe-research__track -->
+  </div><!-- /.fe-research__viewport -->
+
+  <div class="fe-research__nav">
+    <div class="fe-research__dots" id="research-dots"></div>
+    <div class="fe-research__arrows">
+      <button class="fe-research__arrow fe-research__arrow--prev" id="research-prev" aria-label="Previous insight">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+      <button class="fe-research__arrow fe-research__arrow--next" id="research-next" aria-label="Next insight">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BOTTOM CTA ===================== -->
+<section class="fe-briefing">
+  <div class="fe-briefing__card">
+    <img class="fe-briefing__type" src="engage/type-watermark.svg" alt="">
+    <div class="fe-briefing__content">
+      <p class="fe-briefing__eyebrow">Your Regional Team</p>
+      <div class="fe-briefing__row">
+        <div class="fe-briefing__text">
+          <h2 class="fe-briefing__title">We're here when you're ready.</h2>
+          <p class="fe-briefing__desc">First Eagle's regional directors are available by state. No forms. No queues. A direct line to someone who knows our strategies and how they fit your clients.</p>
+        </div>
+        <div class="fe-briefing__actions">
+          <a href="#" class="fe-briefing__btn fe-briefing__btn--frosted">Find Regional Director</a>
+          <a href="#" class="fe-briefing__btn fe-briefing__btn--white">Subscribe</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -2607,6 +3355,211 @@
     el.addEventListener('pointerenter', function () { activate(i); });
     el.addEventListener('click',        function () { activate(i); });
   });
+})();
+
+/* ---------------------- research slider (infinite centered peek carousel) ---------------------- */
+(function () {
+  var viewport = document.getElementById('research-viewport');
+  var track    = document.getElementById('research-track');
+  var dotsEl   = document.getElementById('research-dots');
+  var prevBtn  = document.getElementById('research-prev');
+  var nextBtn  = document.getElementById('research-next');
+  if (!viewport || !track || !dotsEl) return;
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var AUTO_MS = 5000;
+  /* original real slides — never removed from DOM */
+  var allSlides    = Array.from(track.querySelectorAll('.fe-research__slide:not(.fe-research__slide--clone)'));
+  var activeFilter = 'all';
+  var visibleSlides = allSlides.slice();
+  var idx      = 0;   /* logical index 0..n-1 */
+  var domOffset = 0;  /* number of pre-clones prepended */
+  var domIdx   = 0;   /* current absolute position in visible DOM slides */
+  var elapsed  = 0, rafId = null, rafLastTs = null, paused = false;
+
+  function getVisible() {
+    return activeFilter === 'all'
+      ? allSlides
+      : allSlides.filter(function(s) { return s.dataset.filter === activeFilter; });
+  }
+
+  function metrics() {
+    if (window.matchMedia('(max-width: 1100px)').matches) {
+      var w = window.innerWidth - 80;
+      return { thumb: w, active: w, gap: 24 };
+    }
+    return { thumb: 749, active: 1037, gap: 48 };
+  }
+
+  /* All slide DOM nodes currently in track, excluding display:none real slides */
+  function getDomSlides() {
+    return Array.from(track.children).filter(function(el) {
+      return el.classList.contains('fe-research__slide') && el.style.display !== 'none';
+    });
+  }
+
+  function positionTrack(instant) {
+    var m   = metrics();
+    var tx  = viewport.clientWidth / 2 - (domIdx * (m.thumb + m.gap) + m.active / 2);
+    if (instant) {
+      var prev = track.style.transition;
+      track.style.transition = 'none';
+      track.style.transform  = 'translateX(' + tx + 'px)';
+      track.offsetHeight; /* force reflow */
+      track.style.transition = prev;
+    } else {
+      track.style.transform = 'translateX(' + tx + 'px)';
+    }
+  }
+
+  function rebuildInfinite() {
+    /* remove old clones */
+    Array.from(track.querySelectorAll('.fe-research__slide--clone')).forEach(function(c) { c.remove(); });
+
+    /* show/hide real slides per filter */
+    allSlides.forEach(function(s) { s.style.display = 'none'; s.classList.remove('is-active'); });
+    visibleSlides.forEach(function(s) { s.style.display = ''; });
+
+    var n = visibleSlides.length;
+    if (n < 2) { domOffset = 0; domIdx = idx; return; }
+
+    /* pre-clones: same-order copies inserted before first visible real slide */
+    var anchor = visibleSlides[0];
+    visibleSlides.forEach(function(s) {
+      var c = s.cloneNode(true);
+      c.classList.add('fe-research__slide--clone');
+      c.classList.remove('is-active');
+      track.insertBefore(c, anchor);
+    });
+
+    /* post-clones: same-order copies appended after last visible real slide */
+    visibleSlides.forEach(function(s) {
+      var c = s.cloneNode(true);
+      c.classList.add('fe-research__slide--clone');
+      c.classList.remove('is-active');
+      track.appendChild(c);
+    });
+
+    domOffset = n;
+    domIdx    = domOffset + idx;
+  }
+
+  /* after each animated move, snap back to real position if we landed on a clone */
+  function snapIfNeeded() {
+    var n = visibleSlides.length;
+    if (n < 2) return;
+    if (domIdx < domOffset || domIdx >= domOffset + n) {
+      domIdx = domOffset + idx;
+      positionTrack(true);
+    }
+  }
+
+  track.addEventListener('transitionend', function(e) {
+    if (e.propertyName === 'transform' && e.target === track) snapIfNeeded();
+  });
+
+  function buildDots() {
+    dotsEl.innerHTML = '';
+    visibleSlides.forEach(function(_, i) {
+      var d    = document.createElement('button');
+      d.className = 'fe-research__dot';
+      d.setAttribute('aria-label', 'Slide ' + (i + 1));
+      var fill = document.createElement('span');
+      fill.className = 'fe-research__dot-fill';
+      d.appendChild(fill);
+      d.addEventListener('click', function() { goToLogical(i); });
+      dotsEl.appendChild(d);
+    });
+  }
+
+  function updateActive() {
+    var n = visibleSlides.length;
+    /* real slides */
+    visibleSlides.forEach(function(s, i) { s.classList.toggle('is-active', i === idx); });
+    /* clones: the one at domIdx (if it's a clone) */
+    var domSlides = getDomSlides();
+    domSlides.forEach(function(s, i) {
+      if (s.classList.contains('fe-research__slide--clone')) {
+        s.classList.toggle('is-active', i === domIdx);
+      }
+    });
+    /* dots */
+    Array.from(dotsEl.children).forEach(function(d, i) {
+      d.classList.toggle('is-active', i === idx);
+      var f = d.querySelector('.fe-research__dot-fill');
+      if (f) f.style.width = '0%';
+    });
+  }
+
+  function scheduleProgress() {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafLastTs = null;
+    function step(ts) {
+      if (rafLastTs !== null && !paused) elapsed += ts - rafLastTs;
+      rafLastTs = ts;
+      var progress = Math.min(elapsed / AUTO_MS, 1);
+      var activeDot = dotsEl.children[idx];
+      if (activeDot) {
+        var fill = activeDot.querySelector('.fe-research__dot-fill');
+        if (fill) fill.style.width = (progress * 100) + '%';
+      }
+      if (progress >= 1) { rafId = null; goToDomDelta(1); }
+      else { rafId = requestAnimationFrame(step); }
+    }
+    rafId = requestAnimationFrame(step);
+  }
+
+  /* advance domIdx by delta (±1), update logical idx with wrap, animate */
+  function goToDomDelta(delta) {
+    var n = visibleSlides.length;
+    domIdx += delta;
+    idx = ((domIdx - domOffset) % n + n) % n;
+    elapsed = 0;
+    updateActive();
+    positionTrack(false);
+    if (!reduceMotion) scheduleProgress();
+  }
+
+  /* jump to a specific logical index (from dots) */
+  function goToLogical(i) {
+    var n = visibleSlides.length;
+    idx   = ((i % n) + n) % n;
+    domIdx = domOffset + idx;
+    elapsed = 0;
+    updateActive();
+    positionTrack(false);
+    if (!reduceMotion) scheduleProgress();
+  }
+
+  /* filter tabs */
+  document.querySelectorAll('.fe-research__filter').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.fe-research__filter').forEach(function(b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+      activeFilter = btn.dataset.filter;
+      visibleSlides = getVisible();
+      if (!visibleSlides.length) visibleSlides = allSlides;
+      idx = 0; elapsed = 0;
+      rebuildInfinite();
+      buildDots();
+      updateActive();
+      positionTrack(true);
+      if (!reduceMotion) scheduleProgress();
+    });
+  });
+
+  if (prevBtn) prevBtn.addEventListener('click', function() { goToDomDelta(-1); });
+  if (nextBtn) nextBtn.addEventListener('click', function() { goToDomDelta(1); });
+
+  viewport.addEventListener('mouseenter', function() { paused = true; });
+  viewport.addEventListener('mouseleave', function() { paused = false; });
+  window.addEventListener('resize', function() { positionTrack(true); });
+
+  rebuildInfinite();
+  buildDots();
+  updateActive();
+  positionTrack(true);
+  if (!reduceMotion) scheduleProgress();
 })();
 
 /* ---------------------- insights gallery (sticky accordion) ---------------------- */
