@@ -1882,14 +1882,13 @@
   .fe-research__slide.is-active .fe-research__img {
     height: 513px;
   }
+  /* single floating card — fixed to viewport, images slide beneath it */
   .fe-research__card {
     position: absolute;
     top: 152px;
-    right: -24px;
+    right: calc(50% - 542.5px);
     width: 405px;
     background: #fff;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
     border: 1px solid rgba(235,239,241,0.15);
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     border-radius: 8px 8px 64px 8px;
@@ -1897,14 +1896,21 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s;
+    z-index: 10;
   }
-  .fe-research__slide.is-active .fe-research__card,
-  .fe-research__slide--clone.is-active .fe-research__card {
-    opacity: 1;
-    visibility: visible;
+  .fe-research__card-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+  }
+  .fe-research__card-inner.is-out {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  .fe-research__card-inner.is-in {
+    opacity: 0;
+    transform: translateY(10px);
   }
   .fe-research__card-body {
     display: flex;
@@ -2310,6 +2316,59 @@
   @media (max-width: 600px) {
     .fe-nav__links .fe-nav__link { display: none; }
   }
+
+  /* ===================== footer ===================== */
+  .fe-footer { background: #041331; width: 100%; }
+  .fe-footer__inner { padding: 0 80px; }
+
+  /* subscribe bar */
+  .fe-footer__subscribe { display: flex; align-items: center; justify-content: space-between; padding: 44px 0 45px; border-bottom: 1px solid #24304a; }
+  .fe-footer__subscribe-heading { font-family: "FE Chivo", sans-serif; font-weight: 700; font-size: 26px; line-height: 1.4; letter-spacing: -0.26px; color: #fff; margin: 0 0 8px; }
+  .fe-footer__subscribe-sub { font-family: "FE Chivo", sans-serif; font-size: 14px; line-height: 1.6; color: #93aec1; margin: 0; max-width: 460px; }
+  .fe-footer__form { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .fe-footer__input { width: 300px; height: 52px; background: #162035; border: 1px solid #24304a; border-radius: 4px; padding: 0 19px; font-family: "FE Chivo", sans-serif; font-size: 14px; color: #93aec1; outline: none; }
+  .fe-footer__input::placeholder { color: #93aec1; }
+  .fe-footer__submit { height: 52px; padding: 0 25px; border: 1px solid #fff; border-radius: 4px; background: transparent; font-family: "FE Chivo", sans-serif; font-size: 14px; font-weight: 700; color: #fff; cursor: pointer; white-space: nowrap; }
+
+  /* nav section */
+  .fe-footer__nav { display: flex; align-items: flex-start; justify-content: space-between; padding: 52px 0 32px; }
+  .fe-footer__brand { flex: 0 0 300px; display: flex; flex-direction: column; gap: 0; }
+  .fe-footer__logo { height: 33px; width: auto; display: block; margin-bottom: 12px; }
+  .fe-footer__tagline { font-family: "FE Chivo", sans-serif; font-size: 13px; line-height: 1.6; color: #93aec1; max-width: 260px; margin: 0 0 20px; }
+  .fe-footer__socials { display: flex; gap: 10px; }
+  .fe-footer__social { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border: 1px solid #24304a; border-radius: 9px; flex-shrink: 0; }
+  .fe-footer__social img { width: 17px; height: 17px; display: block; }
+  .fe-footer__cols { display: flex; gap: 80px; }
+  .fe-footer__col-label { font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #b8deef; margin: 0 0 16px; }
+  .fe-footer__col-links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+  .fe-footer__col-links a { font-family: "FE Chivo", sans-serif; font-size: 14px; line-height: 1.4; color: #dde5fd; text-decoration: none; }
+  .fe-footer__col-links a:hover { color: #fff; }
+
+  /* locale bar */
+  .fe-footer__locale { border-top: 1px solid #24304a; border-bottom: 1px solid #24304a; padding: 23px 0; display: flex; align-items: center; gap: 12px; }
+  .fe-footer__locale-label { font-family: "FE Chivo", sans-serif; font-size: 13px; color: #93aec1; }
+  .fe-footer__locale-selectors { display: flex; align-items: center; gap: 0; }
+  .fe-footer__locale-btn { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; font-family: var(--mono); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #93aec1; background: none; border: none; cursor: pointer; }
+  .fe-footer__locale-btn img { width: 12px; height: 12px; filter: brightness(0) saturate(100%) invert(72%) sepia(10%) saturate(700%) hue-rotate(165deg) brightness(90%) contrast(88%); }
+  .fe-footer__locale-sep { font-family: var(--mono); font-size: 12px; color: #93aec1; }
+
+  /* legal bar */
+  .fe-footer__legal { padding: 24px 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; }
+  .fe-footer__legal-links { display: flex; flex-wrap: wrap; gap: 8px 22px; flex: 1; }
+  .fe-footer__legal-links a { font-family: "FE Chivo", sans-serif; font-size: 12px; line-height: 1.4; color: #93aec1; text-decoration: none; white-space: nowrap; }
+  .fe-footer__legal-links a:hover { color: #fff; }
+  .fe-footer__back-top { flex-shrink: 0; display: inline-flex; align-items: center; padding: 10px 15px; border: 1px solid #24304a; border-radius: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: #b8deef; background: none; cursor: pointer; white-space: nowrap; }
+
+  /* copyright */
+  .fe-footer__copyright { border-top: 1px solid #24304a; padding: 21px 0 8px; }
+  .fe-footer__copyright p { font-family: "FE Chivo", sans-serif; font-size: 11px; line-height: 1.65; color: #93aec1; margin: 0; }
+
+  /* risk disclosures */
+  .fe-footer__risk { background: #000e29; padding: 48px 80px; }
+  .fe-footer__risk p { font-family: "FE Chivo", sans-serif; font-size: 12px; line-height: 1.4; color: #ebeff1; margin: 0 0 1.4em; max-width: 1000px; }
+  .fe-footer__risk p:last-child { margin-bottom: 0; }
+  .fe-footer__risk strong { font-weight: 700; }
+  .fe-footer__risk a { color: #ebeff1; }
 </style>
 </head>
 <body>
@@ -2687,99 +2746,67 @@
   <div class="fe-research__viewport" id="research-viewport">
     <div class="fe-research__track" id="research-track">
 
-      <div class="fe-research__slide is-active" data-filter="market-outlook">
+      <div class="fe-research__slide is-active" data-filter="market-outlook"
+           data-tag="Market Outlook" data-time="5 min"
+           data-title="The Long Road to AI Driven Productivity"
+           data-desc="Labor markets are starting to see measurable productivity gains, but large-scale impacts may take longer to come to fruition."
+           data-author-name="Matthew McLennan, CFA" data-author-role="Head of Global Value, Portfolio Manager"
+           data-author-avatar="insights/authors.png">
         <img class="fe-research__img" src="insights/slide-1.png" alt="Market Outlook">
-        <div class="fe-research__card">
-          <div class="fe-research__card-body">
-            <div class="fe-research__card-meta">
-              <span class="fe-research__card-tag">Market Outlook</span>
-              <span class="fe-research__card-sep">•</span>
-              <span class="fe-research__card-time">5 min</span>
-            </div>
-            <p class="fe-research__card-title">The Long Road to AI Driven Productivity</p>
-            <p class="fe-research__card-desc">Labor markets are starting to see measurable productivity gains, but large-scale impacts may take longer to come to fruition.</p>
-            <a href="#" class="fe-research__card-read">Read Insight <img src="insights/arrow-right-blue.svg" alt="" style="width:16px;height:16px;"></a>
-          </div>
-          <div class="fe-research__card-author">
-            <img class="fe-research__card-avatar" src="insights/authors.png" alt="">
-            <div>
-              <p class="fe-research__card-author-name">Matthew McLennan, CFA</p>
-              <p class="fe-research__card-author-role">Head of Global Value, Portfolio Manager</p>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <div class="fe-research__slide" data-filter="alt-credit">
+      <div class="fe-research__slide" data-filter="alt-credit"
+           data-tag="Alternative Credit" data-time="4 min"
+           data-title="Private Credit's Role in a Diversified Portfolio"
+           data-desc="With spreads compressing in public markets, private credit continues to offer compelling risk-adjusted returns for long-term allocators."
+           data-author-name="Andrew Laurence" data-author-role="Senior Vice President, Napier Park"
+           data-author-avatar="insights/authors.png">
         <img class="fe-research__img" src="insights/slide-2.png" alt="Alternative Credit">
-        <div class="fe-research__card">
-          <div class="fe-research__card-body">
-            <div class="fe-research__card-meta">
-              <span class="fe-research__card-tag">Alternative Credit</span>
-              <span class="fe-research__card-sep">•</span>
-              <span class="fe-research__card-time">4 min</span>
-            </div>
-            <p class="fe-research__card-title">Private Credit's Role in a Diversified Portfolio</p>
-            <p class="fe-research__card-desc">With spreads compressing in public markets, private credit continues to offer compelling risk-adjusted returns for long-term allocators.</p>
-            <a href="#" class="fe-research__card-read">Read Insight <img src="insights/arrow-right-blue.svg" alt="" style="width:16px;height:16px;"></a>
-          </div>
-          <div class="fe-research__card-author">
-            <img class="fe-research__card-avatar" src="insights/authors.png" alt="">
-            <div>
-              <p class="fe-research__card-author-name">Andrew Laurence</p>
-              <p class="fe-research__card-author-role">Senior Vice President, Napier Park</p>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <div class="fe-research__slide" data-filter="municipal">
+      <div class="fe-research__slide" data-filter="municipal"
+           data-tag="Municipal Credit" data-time="3 min"
+           data-title="Building Resilience Through Municipal Credit"
+           data-desc="High-quality muni bonds remain one of the most tax-efficient tools available to advisors serving high-net-worth clients."
+           data-author-name="Robert Bruno" data-author-role="Senior Vice President"
+           data-author-avatar="insights/authors.png">
         <img class="fe-research__img" src="insights/slide-3.png" alt="Municipal Credit">
-        <div class="fe-research__card">
-          <div class="fe-research__card-body">
-            <div class="fe-research__card-meta">
-              <span class="fe-research__card-tag">Municipal Credit</span>
-              <span class="fe-research__card-sep">•</span>
-              <span class="fe-research__card-time">3 min</span>
-            </div>
-            <p class="fe-research__card-title">Building Resilience Through Municipal Credit</p>
-            <p class="fe-research__card-desc">High-quality muni bonds remain one of the most tax-efficient tools available to advisors serving high-net-worth clients.</p>
-            <a href="#" class="fe-research__card-read">Read Insight <img src="insights/arrow-right-blue.svg" alt="" style="width:16px;height:16px;"></a>
-          </div>
-          <div class="fe-research__card-author">
-            <img class="fe-research__card-avatar" src="insights/authors.png" alt="">
-            <div>
-              <p class="fe-research__card-author-name">Robert Bruno</p>
-              <p class="fe-research__card-author-role">Senior Vice President</p>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <div class="fe-research__slide" data-filter="gold">
+      <div class="fe-research__slide" data-filter="gold"
+           data-tag="Gold &amp; Real Asset" data-time="6 min"
+           data-title="Gold as a Hedge: Rethinking Hard Assets"
+           data-desc="Our team explores how gold and real assets can serve as a meaningful hedge against monetary debasement and tail risk."
+           data-author-name="Idanna Appio" data-author-role="Portfolio Manager, Global Value"
+           data-author-avatar="insights/authors.png">
         <img class="fe-research__img" src="insights/slide-4.png" alt="Gold and Real Assets">
-        <div class="fe-research__card">
-          <div class="fe-research__card-body">
-            <div class="fe-research__card-meta">
-              <span class="fe-research__card-tag">Gold &amp; Real Asset</span>
-              <span class="fe-research__card-sep">•</span>
-              <span class="fe-research__card-time">6 min</span>
-            </div>
-            <p class="fe-research__card-title">Gold as a Hedge: Rethinking Hard Assets</p>
-            <p class="fe-research__card-desc">Our team explores how gold and real assets can serve as a meaningful hedge against monetary debasement and tail risk.</p>
-            <a href="#" class="fe-research__card-read">Read Insight <img src="insights/arrow-right-blue.svg" alt="" style="width:16px;height:16px;"></a>
-          </div>
-          <div class="fe-research__card-author">
-            <img class="fe-research__card-avatar" src="insights/authors.png" alt="">
-            <div>
-              <p class="fe-research__card-author-name">Idanna Appio</p>
-              <p class="fe-research__card-author-role">Portfolio Manager, Global Value</p>
-            </div>
-          </div>
-        </div>
       </div>
 
     </div><!-- /.fe-research__track -->
+
+    <!-- single floating card — stays put, only text animates -->
+    <div class="fe-research__card" id="research-card">
+      <div class="fe-research__card-inner" id="research-card-inner">
+        <div class="fe-research__card-body">
+          <div class="fe-research__card-meta">
+            <span class="fe-research__card-tag" id="rc-tag"></span>
+            <span class="fe-research__card-sep">•</span>
+            <span class="fe-research__card-time" id="rc-time"></span>
+          </div>
+          <p class="fe-research__card-title" id="rc-title"></p>
+          <p class="fe-research__card-desc" id="rc-desc"></p>
+          <a href="#" class="fe-research__card-read">Read Insight <img src="insights/arrow-right-blue.svg" alt="" style="width:16px;height:16px;"></a>
+        </div>
+        <div class="fe-research__card-author">
+          <img class="fe-research__card-avatar" id="rc-avatar" src="" alt="">
+          <div>
+            <p class="fe-research__card-author-name" id="rc-author-name"></p>
+            <p class="fe-research__card-author-role" id="rc-author-role"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div><!-- /.fe-research__viewport -->
 
   <div class="fe-research__nav">
@@ -3357,25 +3384,34 @@
   });
 })();
 
-/* ---------------------- research slider (infinite centered peek carousel) ---------------------- */
+/* ---------------------- research slider (infinite peek + fixed card) ---------------------- */
 (function () {
-  var viewport = document.getElementById('research-viewport');
-  var track    = document.getElementById('research-track');
-  var dotsEl   = document.getElementById('research-dots');
-  var prevBtn  = document.getElementById('research-prev');
-  var nextBtn  = document.getElementById('research-next');
-  if (!viewport || !track || !dotsEl) return;
+  var viewport   = document.getElementById('research-viewport');
+  var track      = document.getElementById('research-track');
+  var dotsEl     = document.getElementById('research-dots');
+  var prevBtn    = document.getElementById('research-prev');
+  var nextBtn    = document.getElementById('research-next');
+  var cardInner  = document.getElementById('research-card-inner');
+  if (!viewport || !track || !dotsEl || !cardInner) return;
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var AUTO_MS = 5000;
-  /* original real slides — never removed from DOM */
   var allSlides    = Array.from(track.querySelectorAll('.fe-research__slide:not(.fe-research__slide--clone)'));
   var activeFilter = 'all';
   var visibleSlides = allSlides.slice();
-  var idx      = 0;   /* logical index 0..n-1 */
-  var domOffset = 0;  /* number of pre-clones prepended */
-  var domIdx   = 0;   /* current absolute position in visible DOM slides */
+  var idx      = 0;
+  var domOffset = 0;
+  var domIdx   = 0;
   var elapsed  = 0, rafId = null, rafLastTs = null, paused = false;
+
+  /* card field refs */
+  var rcTag    = document.getElementById('rc-tag');
+  var rcTime   = document.getElementById('rc-time');
+  var rcTitle  = document.getElementById('rc-title');
+  var rcDesc   = document.getElementById('rc-desc');
+  var rcAvatar = document.getElementById('rc-avatar');
+  var rcName   = document.getElementById('rc-author-name');
+  var rcRole   = document.getElementById('rc-author-role');
 
   function getVisible() {
     return activeFilter === 'all'
@@ -3391,7 +3427,6 @@
     return { thumb: 749, active: 1037, gap: 48 };
   }
 
-  /* All slide DOM nodes currently in track, excluding display:none real slides */
   function getDomSlides() {
     return Array.from(track.children).filter(function(el) {
       return el.classList.contains('fe-research__slide') && el.style.display !== 'none';
@@ -3399,31 +3434,54 @@
   }
 
   function positionTrack(instant) {
-    var m   = metrics();
-    var tx  = viewport.clientWidth / 2 - (domIdx * (m.thumb + m.gap) + m.active / 2);
+    var m  = metrics();
+    var tx = viewport.clientWidth / 2 - (domIdx * (m.thumb + m.gap) + m.active / 2);
     if (instant) {
       var prev = track.style.transition;
       track.style.transition = 'none';
       track.style.transform  = 'translateX(' + tx + 'px)';
-      track.offsetHeight; /* force reflow */
+      track.offsetHeight;
       track.style.transition = prev;
     } else {
       track.style.transform = 'translateX(' + tx + 'px)';
     }
   }
 
-  function rebuildInfinite() {
-    /* remove old clones */
-    Array.from(track.querySelectorAll('.fe-research__slide--clone')).forEach(function(c) { c.remove(); });
+  /* populate card fields from a slide's data attributes */
+  function populateCard(slide) {
+    if (!slide) return;
+    var d = slide.dataset;
+    rcTag.textContent    = d.tag    || '';
+    rcTime.textContent   = d.time   || '';
+    rcTitle.textContent  = d.title  || '';
+    rcDesc.textContent   = d.desc   || '';
+    rcName.textContent   = d.authorName || '';
+    rcRole.textContent   = d.authorRole || '';
+    rcAvatar.src         = d.authorAvatar || '';
+  }
 
-    /* show/hide real slides per filter */
+  /* animate card text out → swap content → animate in */
+  function animateCard(slide) {
+    if (reduceMotion) { populateCard(slide); return; }
+    cardInner.classList.add('is-out');
+    setTimeout(function() {
+      populateCard(slide);
+      cardInner.classList.remove('is-out');
+      cardInner.classList.add('is-in');
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          cardInner.classList.remove('is-in');
+        });
+      });
+    }, 220);
+  }
+
+  function rebuildInfinite() {
+    Array.from(track.querySelectorAll('.fe-research__slide--clone')).forEach(function(c) { c.remove(); });
     allSlides.forEach(function(s) { s.style.display = 'none'; s.classList.remove('is-active'); });
     visibleSlides.forEach(function(s) { s.style.display = ''; });
-
     var n = visibleSlides.length;
     if (n < 2) { domOffset = 0; domIdx = idx; return; }
-
-    /* pre-clones: same-order copies inserted before first visible real slide */
     var anchor = visibleSlides[0];
     visibleSlides.forEach(function(s) {
       var c = s.cloneNode(true);
@@ -3431,20 +3489,16 @@
       c.classList.remove('is-active');
       track.insertBefore(c, anchor);
     });
-
-    /* post-clones: same-order copies appended after last visible real slide */
     visibleSlides.forEach(function(s) {
       var c = s.cloneNode(true);
       c.classList.add('fe-research__slide--clone');
       c.classList.remove('is-active');
       track.appendChild(c);
     });
-
     domOffset = n;
     domIdx    = domOffset + idx;
   }
 
-  /* after each animated move, snap back to real position if we landed on a clone */
   function snapIfNeeded() {
     var n = visibleSlides.length;
     if (n < 2) return;
@@ -3472,23 +3526,20 @@
     });
   }
 
-  function updateActive() {
-    var n = visibleSlides.length;
-    /* real slides */
+  function updateActive(animCard) {
     visibleSlides.forEach(function(s, i) { s.classList.toggle('is-active', i === idx); });
-    /* clones: the one at domIdx (if it's a clone) */
     var domSlides = getDomSlides();
     domSlides.forEach(function(s, i) {
       if (s.classList.contains('fe-research__slide--clone')) {
         s.classList.toggle('is-active', i === domIdx);
       }
     });
-    /* dots */
     Array.from(dotsEl.children).forEach(function(d, i) {
       d.classList.toggle('is-active', i === idx);
       var f = d.querySelector('.fe-research__dot-fill');
       if (f) f.style.width = '0%';
     });
+    if (animCard !== false) animateCard(visibleSlides[idx]);
   }
 
   function scheduleProgress() {
@@ -3509,7 +3560,6 @@
     rafId = requestAnimationFrame(step);
   }
 
-  /* advance domIdx by delta (±1), update logical idx with wrap, animate */
   function goToDomDelta(delta) {
     var n = visibleSlides.length;
     domIdx += delta;
@@ -3520,7 +3570,6 @@
     if (!reduceMotion) scheduleProgress();
   }
 
-  /* jump to a specific logical index (from dots) */
   function goToLogical(i) {
     var n = visibleSlides.length;
     idx   = ((i % n) + n) % n;
@@ -3531,7 +3580,6 @@
     if (!reduceMotion) scheduleProgress();
   }
 
-  /* filter tabs */
   document.querySelectorAll('.fe-research__filter').forEach(function(btn) {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.fe-research__filter').forEach(function(b) { b.classList.remove('is-active'); });
@@ -3557,7 +3605,9 @@
 
   rebuildInfinite();
   buildDots();
-  updateActive();
+  /* populate card without animation on init */
+  populateCard(visibleSlides[idx]);
+  updateActive(false);
   positionTrack(true);
   if (!reduceMotion) scheduleProgress();
 })();
@@ -3578,6 +3628,117 @@
   });
 })();
 </script>
+
+<footer class="fe-footer">
+  <div class="fe-footer__inner">
+
+    <!-- subscribe bar -->
+    <div class="fe-footer__subscribe">
+      <div>
+        <p class="fe-footer__subscribe-heading">Stay ahead of the markets</p>
+        <p class="fe-footer__subscribe-sub">Get the Bird's Eye View and timely perspectives from our investment teams, delivered to your inbox.</p>
+      </div>
+      <div class="fe-footer__form">
+        <input class="fe-footer__input" type="email" placeholder="name@company.com">
+        <button class="fe-footer__submit">Subscribe</button>
+      </div>
+    </div>
+
+    <!-- nav section -->
+    <div class="fe-footer__nav">
+      <div class="fe-footer__brand">
+        <img class="fe-footer__logo" src="nav/fei-logo-white.svg" alt="First Eagle Investments">
+        <p class="fe-footer__tagline">An independent, privately owned asset manager focused on capital preservation and long-term value since 1864.</p>
+        <div class="fe-footer__socials">
+          <a href="#" class="fe-footer__social" aria-label="LinkedIn"><img src="footer/icon-linkedin.svg" alt="LinkedIn"></a>
+          <a href="#" class="fe-footer__social" aria-label="X"><img src="footer/icon-x.svg" alt="X"></a>
+          <a href="#" class="fe-footer__social" aria-label="YouTube"><img src="footer/icon-youtube.svg" alt="YouTube"></a>
+        </div>
+      </div>
+      <div class="fe-footer__cols">
+        <div>
+          <p class="fe-footer__col-label">Investments</p>
+          <ul class="fe-footer__col-links">
+            <li><a href="#">Mutual Funds</a></li>
+            <li><a href="#">ETFs</a></li>
+            <li><a href="#">Interval Funds</a></li>
+            <li><a href="#">SMAs</a></li>
+            <li><a href="#">By Asset Class</a></li>
+            <li><a href="#">Fund Finder</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="fe-footer__col-label">Explore</p>
+          <ul class="fe-footer__col-links">
+            <li><a href="#">Bird's Eye View</a></li>
+            <li><a href="#">Insights</a></li>
+            <li><a href="#">First Eagle Academy</a></li>
+            <li><a href="#">Client Servicing</a></li>
+            <li><a href="#">Retirement Solutions</a></li>
+            <li><a href="#">Ways to Invest</a></li>
+            <li><a href="#">Documents &amp; Forms</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="fe-footer__col-label">Who We Are</p>
+          <ul class="fe-footer__col-links">
+            <li><a href="#">About First Eagle</a></li>
+            <li><a href="#">Leadership</a></li>
+            <li><a href="#">Investment Teams</a></li>
+            <li><a href="#">Press and Media</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- locale bar -->
+    <div class="fe-footer__locale">
+      <span class="fe-footer__locale-label">You're viewing content for</span>
+      <div class="fe-footer__locale-selectors">
+        <button class="fe-footer__locale-btn">Financial Professional <img src="lucide/chevron-down.svg" alt=""></button>
+        <span class="fe-footer__locale-sep">/</span>
+        <button class="fe-footer__locale-btn">US <img src="lucide/chevron-down.svg" alt=""></button>
+      </div>
+    </div>
+
+    <!-- legal bar -->
+    <div class="fe-footer__legal">
+      <div class="fe-footer__legal-links">
+        <a href="#">Terms</a>
+        <a href="#">Privacy Notice</a>
+        <a href="#">Notice About WhatsApp</a>
+        <a href="#">UK Tax Strategy</a>
+        <a href="#">Business Continuity</a>
+        <a href="#">Accessibility Statement</a>
+        <a href="#">Transparency in Coverage</a>
+        <a href="#">Complaint Handling Policy for FEIM Ltd</a>
+        <a href="#">Global Value Team Responsible Investment Guidelines</a>
+      </div>
+      <button class="fe-footer__back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to top ↑</button>
+    </div>
+
+    <!-- copyright -->
+    <div class="fe-footer__copyright">
+      <p>© 2026 First Eagle Investment Management, LLC. All rights reserved.</p>
+    </div>
+
+  </div><!-- /.fe-footer__inner -->
+
+  <!-- risk disclosures -->
+  <div class="fe-footer__risk">
+    <p><strong>Risk Disclosures</strong></p>
+    <p>All investments involve the risk of loss of principal.</p>
+    <p>There are risks associated with investing in securities of foreign countries, such as erratic market conditions, economic and political instability and fluctuations in currency exchange rates.</p>
+    <p>A principal risk of investing in value stocks is that the price of the security may not approach its anticipated value or may decline in value. "Value" investments, as a category, or entire industries or sectors associated with such investments, may lose favor with investors as compared to those that are more "growth" oriented.</p>
+    <p>Investment in gold and gold-related investments present certain risks and returns on gold related investments have traditionally been more volatile than investments in broader equity or debt markets.</p>
+    <p>Diversification does not guarantee investment returns and does not eliminate the risk of loss.</p>
+    <p>Investors should consider investment objectives, risks, charges and expenses carefully before investing. The <a href="http://firsteaglefunds.onlineprospectus.net/firsteaglefunds/GlobalFund/index.html?ctype=prospectus" target="_blank">prospectus</a> and <a href="http://firsteaglefunds.onlineprospectus.net/firsteaglefunds/GlobalFund/index.html?ctype=summary" target="_blank">summary prospectus</a> contain this and other information about the Funds and may be viewed <a href="http://firsteaglefunds.onlineprospectus.net/firsteaglefunds/GlobalFund/index.html" target="_blank">online</a> or calling us at 800.747.2008. Please read the prospectus carefully before investing. Investments are not FDIC insured or bank guaranteed and may lose value.</p>
+    <p>FEF Distributors, LLC ("FEFD") (SIPC), a limited purpose broker-dealer, distributes certain First Eagle products. FEFD does not provide services to any investor, but rather provides services to its First Eagle affiliates. As such, when FEFD presents a fund, strategy, or other product to a prospective investor, FEFD and its representatives do not determine whether an investment in the fund, strategy or other product is in the best interests of, or is otherwise beneficial or suitable for, the investor. No statement by FEFD should be construed as a recommendation. Investors should exercise their own judgment and/or consult with a financial professional to determine whether it is advisable for the investor to invest in any First Eagle fund, strategy, or product.</p>
+    <p>The First Eagle Funds are offered by FEF Distributors, LLC, a subsidiary of First Eagle Investment Management, LLC, which provides advisory services.<br>Check the background of FEF Distributors, LLC (Member <a href="https://www.sipc.org/" target="_blank">SIPC</a>) on <a href="https://brokercheck.finra.org/firm/summary/46585" target="_blank">FINRA's BrokerCheck</a>.<br>Form Customer Relationship Summary ("FORM CRS") can be accessed by clicking on this link <a href="https://www.firsteagle.com/sites/default/files/fei-documents/FORM_Customer_Relationship_Summary_1.pdf" target="_blank">FORM CRS</a></p>
+  </div>
+</footer>
 
 </body>
 </html>
